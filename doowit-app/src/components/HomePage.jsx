@@ -34,7 +34,18 @@ export default function HomePage() {
         }
     }
 
+    function removeToDo(id) {
+        if (num === 2) {
+            setToDo(prevToDo => {
+                return prevToDo.filter(entry => entry.id !== id)
+            })
+
+            setNum(0)
+        }
+    }
+
     addToDo()
+    removeToDo(1)
 
     const toDoElements = toDo.map(entry => {
         return (
