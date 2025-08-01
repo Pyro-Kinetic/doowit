@@ -1,12 +1,42 @@
-// import {useState} from "react";
+import {useState} from "react";
 import dance from "../assets/dancing.jpg"
 import ToDo from "./ToDo";
 import data from "../appData";
 
 export default function HomePage() {
-    // const [toDo, setToDo] = useState(data)
+    const [toDo, setToDo] = useState(data)
+    const [num, setNum] = useState(1)
 
-    const toDoElements = data.map(entry => {
+    function newData(data) {
+        return (
+            {
+                id: data.length + 1,
+                icon: "small",
+                title: "Read Book",
+                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                    "Donec diam metus, tristique nec erat id, vehicula posuere orci. " +
+                    "Praesent sit amet eleifend tortor. Aliquam dignissim convallis ornare. " +
+                    "Etiam eget elit in risus laoreet sodales. Sed a iaculis mauris. Praesent imperdiet."
+            }
+        )
+    }
+
+
+    function addToDo() {
+        if (num === 1) {
+            setToDo(prevToDo => {
+                return ([...prevToDo, newData(prevToDo)])
+            })
+
+            setNum(prevState => {
+                return prevState - 1
+            })
+        }
+    }
+
+    addToDo()
+
+    const toDoElements = toDo.map(entry => {
         return (
             <ToDo
                 key={entry.id}
