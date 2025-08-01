@@ -1,6 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Chilanka&family=Hachi+Maru+Pop&display=swap');
+
+.hachi-maru-pop-bold {
+    font-family: "Hachi Maru Pop", cursive;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.hachi-maru-pop-regular {
+    font-family: "Hachi Maru Pop", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: larger;
+}
+
+
 body {
-  margin: 0;
-  box-sizing: border-box;
-  background-color: black;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: whitesmoke;
 }
 
