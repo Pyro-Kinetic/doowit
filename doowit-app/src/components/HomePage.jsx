@@ -35,23 +35,19 @@ export default function HomePage() {
     }
 
     function removeToDo(id) {
-        if (num === 2) {
-            setToDo(prevToDo => {
-                return prevToDo.filter(entry => entry.id !== id)
-            })
-
-            setNum(0)
-        }
+        setToDo(prevToDo => {
+            return prevToDo.filter(entry => entry.id !== id)
+        })
     }
 
     addToDo()
-    removeToDo(1)
 
     const toDoElements = toDo.map(entry => {
         return (
             <ToDo
                 key={entry.id}
                 entry={entry}
+                removeToDo={removeToDo}
             />
         )
     })
