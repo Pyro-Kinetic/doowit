@@ -1,13 +1,19 @@
 import moon from "../assets/moon.png"
+import planet from "../assets/planet.png"
+import sun from "../assets/sun.png"
 
-export default function ToDo() {
+export default function ToDo({entry}) {
+    const imageURL = () => {
+        if (entry.icon === "small") return moon
+        else if (entry.icon === "medium") return planet
+        else return sun
+    }
+
     return (
         <div>
-            <img src={moon} className={"img-fluid"} alt={"moon icon"}/>
-            <h2>Shop Groceries</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec diam metus, tristique nec erat id,
-                vehicula posuere orci. Praesent sit amet eleifend tortor. Aliquam dignissim convallis ornare. Etiam eget
-                elit in risus laoreet sodales. Sed a iaculis mauris. Praesent imperdiet.</p>
+            <img src={imageURL()} className={"img-fluid"} alt={"moon icon"}/>
+            <h2>{entry.title}</h2>
+            <p>{entry.text}</p>
         </div>
     )
 }
