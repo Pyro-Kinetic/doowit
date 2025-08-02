@@ -5,7 +5,7 @@ import ToDoForm from "./ToDoForm";
 import ToDo from "./ToDo";
 
 export default function HomePage() {
-    const [toDo, setToDo] = useState(data)
+    const [toDoList, setToDoList] = useState(data)
     const [num, setNum] = useState(1)
 
     function newData(data) {
@@ -23,10 +23,10 @@ export default function HomePage() {
     }
 
 
-    function addToDo() {
+    function addToDo(obj) {
         if (num === 1) {
-            setToDo(prevToDo => {
-                return ([...prevToDo, newData(prevToDo)])
+            setToDoList(prevToDoList => {
+                return ([...prevToDoList, newData(prevToDoList)])
             })
 
             setNum(prevState => {
@@ -36,14 +36,14 @@ export default function HomePage() {
     }
 
     function removeToDo(id) {
-        setToDo(prevToDo => {
-            return prevToDo.filter(entry => entry.id !== id)
+        setToDoList(prevToDoList => {
+            return prevToDoList.filter(entry => entry.id !== id)
         })
     }
 
     addToDo()
 
-    const toDoElements = toDo.map(entry => {
+    const toDoElements = toDoList.map(entry => {
         return (
             <ToDo
                 key={entry.id}

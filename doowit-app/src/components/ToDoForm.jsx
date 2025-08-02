@@ -1,15 +1,17 @@
+import {v4 as uuidv4} from "uuid";
+
 export default function ToDoForm() {
 
     function submitToDoData(formData) {
-        const title = formData.get("title")
-        const description = formData.get("description")
-        const priority = formData.get("priority")
+        // const title = formData.get("title")
+        // const description = formData.get("description")
+        // const priority = formData.get("priority")
 
         const allData = Object.fromEntries(formData)
 
-        console.log(title)
-        console.log(description)
-        console.log(priority)
+        // console.log(title)
+        // console.log(description)
+        // console.log(priority)
         console.log(allData)
     }
 
@@ -17,6 +19,8 @@ export default function ToDoForm() {
         <section>
             <h1>To Do+</h1>
             <form action={submitToDoData}>
+                <input className={"d-none"} type={"text"} name={"id"} defaultValue={uuidv4()}/>
+
                 <label htmlFor={"title"}>Title</label>
                 <input id={"title"} type={"text"} name={"title"} placeholder={"Add a new task..."}/>
 

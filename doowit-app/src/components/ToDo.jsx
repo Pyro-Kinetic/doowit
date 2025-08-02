@@ -4,8 +4,8 @@ import sun from "../assets/sun.png"
 
 export default function ToDo({entry, removeToDo}) {
     const imageURL = () => {
-        if (entry.icon === "small") return moon
-        else if (entry.icon === "medium") return planet
+        if (entry.icon === "moon") return moon
+        else if (entry.icon === "planet") return planet
         else return sun
     }
 
