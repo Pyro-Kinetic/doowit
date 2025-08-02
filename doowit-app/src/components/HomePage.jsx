@@ -1,7 +1,8 @@
 import {useState} from "react";
 import dance from "../assets/dancing.jpg"
-import ToDo from "./ToDo";
 import data from "../appData";
+import ToDoForm from "./ToDoForm";
+import ToDo from "./ToDo";
 
 export default function HomePage() {
     const [toDo, setToDo] = useState(data)
@@ -59,6 +60,7 @@ export default function HomePage() {
             <main>
                 {toDoElements}
             </main>
+            <ToDoForm />
         </div>
     )
 }

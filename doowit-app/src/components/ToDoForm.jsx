@@ -3,9 +3,14 @@ export default function ToDoForm() {
     function submitToDoData(formData) {
         const title = formData.get("title")
         const description = formData.get("description")
+        const priority = formData.get("priority")
+
+        const allData = Object.fromEntries(formData)
 
         console.log(title)
         console.log(description)
+        console.log(priority)
+        console.log(allData)
     }
 
     return (
@@ -24,13 +29,13 @@ export default function ToDoForm() {
                     <legend>Priority</legend>
 
                     <label htmlFor={"small"}>Small</label>
-                    <input id={"small"} type={"radio"} name={"priority"}/>
+                    <input id={"small"} type={"radio"} name={"priority"} defaultChecked={true} value={"moon"}/>
 
-                    <lable htmlFor={"medium"}>Medium</lable>
-                    <input id={"medium"} type={"radio"} name={"priority"}/>
+                    <label htmlFor={"medium"}>Medium</label>
+                    <input id={"medium"} type={"radio"} name={"priority"} value={"planet"}/>
 
-                    <lable htmlFor={"large"}>Large</lable>
-                    <input id={"large"} type={"radio"} name={"priority"}/>
+                    <label htmlFor={"large"}>Large</label>
+                    <input id={"large"} type={"radio"} name={"priority"} value={"sun"}/>
                 </fieldset>
 
                 <button>Add+</button>
