@@ -2,7 +2,7 @@ import moon from "../assets/moon.png"
 import planet from "../assets/planet.png"
 import sun from "../assets/sun.png"
 
-export default function ToDo({entry, addToDo, removeToDo}) {
+export default function ToDo({entry, removeToDo}) {
     const imageURL = () => {
         if (entry.icon === "small") return moon
         else if (entry.icon === "medium") return planet
