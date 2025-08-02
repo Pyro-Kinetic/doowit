@@ -6,33 +6,12 @@ import ToDo from "./ToDo";
 
 export default function HomePage() {
     const [toDoList, setToDoList] = useState(data)
-    const [num, setNum] = useState(1)
-
-    function newData(data) {
-        return (
-            {
-                id: data.length + 1,
-                icon: "small",
-                title: "Read Book",
-                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-                    "Donec diam metus, tristique nec erat id, vehicula posuere orci. " +
-                    "Praesent sit amet eleifend tortor. Aliquam dignissim convallis ornare. " +
-                    "Etiam eget elit in risus laoreet sodales. Sed a iaculis mauris. Praesent imperdiet."
-            }
-        )
-    }
 
 
     function addToDo(obj) {
-        if (num === 1) {
-            setToDoList(prevToDoList => {
-                return ([...prevToDoList, newData(prevToDoList)])
-            })
-
-            setNum(prevState => {
-                return prevState - 1
-            })
-        }
+        setToDoList(prevToDoList => {
+            return ([...prevToDoList, obj])
+        })
     }
 
     function removeToDo(id) {
@@ -41,7 +20,6 @@ export default function HomePage() {
         })
     }
 
-    addToDo()
 
     const toDoElements = toDoList.map(entry => {
         return (
@@ -60,7 +38,9 @@ export default function HomePage() {
             <main>
                 {toDoElements}
             </main>
-            <ToDoForm />
+            <ToDoForm
+                addToDo={addToDo}
+            />
         </div>
     )
 }

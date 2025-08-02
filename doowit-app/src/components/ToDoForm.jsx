@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from "uuid";
 
-export default function ToDoForm() {
+export default function ToDoForm({addToDo}) {
 
     function submitToDoData(formData) {
         // const title = formData.get("title")
@@ -8,11 +8,8 @@ export default function ToDoForm() {
         // const priority = formData.get("priority")
 
         const allData = Object.fromEntries(formData)
-
-        // console.log(title)
-        // console.log(description)
-        // console.log(priority)
         console.log(allData)
+        addToDo(allData)
     }
 
     return (
