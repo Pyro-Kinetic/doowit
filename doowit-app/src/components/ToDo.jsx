@@ -2,7 +2,7 @@ import moon from "../assets/moon.png"
 import planet from "../assets/planet.png"
 import sun from "../assets/sun.png"
 
-export default function ToDo({entry, removeToDo, setEditingId}) {
+export default function ToDo({entry, removeToDo, setEditingId, setEntry}) {
     const imageURL = () => {
         if (entry.priority === "moon") return moon
         else if (entry.priority === "planet") return planet
@@ -13,8 +13,9 @@ export default function ToDo({entry, removeToDo, setEditingId}) {
         removeToDo(entry.id)
     }
 
-    function handleSetEditingId() {
+    function setIdAndEntryState() {
         setEditingId(entry.id)
+        setEntry(entry)
     }
 
     return (
@@ -23,7 +24,7 @@ export default function ToDo({entry, removeToDo, setEditingId}) {
                 <img src={imageURL()} className={"img-fluid"} alt={"priority icon"}/>
                 <button
                     className={"btn btn bg-secondary"}
-                    onClick={handleSetEditingId}>edit
+                    onClick={setIdAndEntryState}>edit
                 </button>
                 <button
                     className={"btn btn bg-danger"}
