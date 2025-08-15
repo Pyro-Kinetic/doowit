@@ -1,7 +1,7 @@
 import {useState} from "react";
 import dance from "../assets/dancing.jpg"
 import data from "../appData";
-import ToDoForm from "./ToDoForm";
+import AddToDoForm from "./AddToDoForm";
 import ToDo from "./ToDo";
 
 export default function HomePage() {
@@ -19,6 +19,13 @@ export default function HomePage() {
             return prevToDoList.filter(entry => entry.id !== id)
         })
     }
+
+    // function editToDo(id, obj) {
+    //     setToDoList(prevToDoList => {
+    //         const filtered = prevToDoList.filter(entry => entry.id !== id)
+    //         return [...filtered, obj]
+    //     })
+    // }
 
 
     const toDoElements = toDoList.map(entry => {
@@ -38,7 +45,7 @@ export default function HomePage() {
             <main>
                 {toDoElements}
             </main>
-            <ToDoForm
+            <AddToDoForm
                 addToDo={addToDo}
             />
         </div>
