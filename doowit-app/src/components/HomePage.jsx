@@ -2,11 +2,12 @@ import {useState} from "react";
 import dance from "../assets/dancing.jpg"
 import data from "../appData";
 import AddToDoForm from "./AddToDoForm";
+import EditToDoForm from "./EditToDoForm";
 import ToDo from "./ToDo";
 
 export default function HomePage() {
     const [toDoList, setToDoList] = useState(data)
-
+    const [editingId, setEditingId] = useState(null)
 
     function addToDo(obj) {
         setToDoList(prevToDoList => {
@@ -20,26 +21,26 @@ export default function HomePage() {
         })
     }
 
-    // function editToDo(id, obj) {
-    //     setToDoList(prevToDoList => {
-    //         const filtered = prevToDoList.filter(entry => entry.id !== id)
-    //         return [...filtered, obj]
-    //     })
-    // }
+    function editToDo(id, obj) {
+        setToDoList(prevToDoList => {
+            const filtered = prevToDoList.filter(entry => entry.id !== id)
+            return [...filtered, obj]
+        })
+
+        setEditingId(null)
+    }
 
 
     const toDoElements = toDoList.map(entry => {
-        return (
-            <ToDo
+        return (<ToDo
                 key={entry.id}
                 entry={entry}
                 removeToDo={removeToDo}
-            />
-        )
+                setEditingId={setEditingId}
+            />)
     })
 
-    return (
-        <div className={"d-flex flex-column"}>
+    return (<div className={"d-flex flex-column"}>
             <img src={dance} className={"img-fluid ms-3"} alt="Illustration of three people dancing"/>
             <h1 className={"hachi-maru-pop-regular mb-3"}>To Do+</h1>
             <main>
@@ -48,6 +49,6 @@ export default function HomePage() {
             <AddToDoForm
                 addToDo={addToDo}
             />
-        </div>
-    )
+            {editingId && (<EditToDoForm editToDo={editToDo} editingId={editingId}/>)}
+        </div>)
 }

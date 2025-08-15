@@ -4,7 +4,6 @@ export default function AddToDoForm({addToDo}) {
 
     function submitToDoData(formData) {
         const allData = Object.fromEntries(formData)
-        console.log(allData)
         addToDo(allData)
     }
 

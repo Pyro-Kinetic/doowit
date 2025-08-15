@@ -2,7 +2,7 @@ import moon from "../assets/moon.png"
 import planet from "../assets/planet.png"
 import sun from "../assets/sun.png"
 
-export default function ToDo({entry, removeToDo}) {
+export default function ToDo({entry, removeToDo, setEditingId}) {
     const imageURL = () => {
         if (entry.priority === "moon") return moon
         else if (entry.priority === "planet") return planet
@@ -13,10 +13,18 @@ export default function ToDo({entry, removeToDo}) {
         removeToDo(entry.id)
     }
 
+    function handleSetEditingId() {
+        setEditingId(entry.id)
+    }
+
     return (
         <div>
-            <div className={"d-flex"}>
-                <img src={imageURL()} className={"img-fluid"} alt={"moon icon"}/>
+            <div className={"d-flex gap-2 align-items-center"}>
+                <img src={imageURL()} className={"img-fluid"} alt={"priority icon"}/>
+                <button
+                    className={"btn btn bg-secondary"}
+                    onClick={handleSetEditingId}>edit
+                </button>
                 <button
                     className={"btn btn bg-danger"}
                     onClick={handleRemoveToDo}>remove
