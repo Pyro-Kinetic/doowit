@@ -4,6 +4,7 @@ import data from "../appData";
 import AddToDoForm from "./AddToDoForm";
 import EditToDoForm from "./EditToDoForm";
 import ToDo from "./ToDo";
+import {v4 as uuidv4} from "uuid";
 
 export default function HomePage() {
     const [toDoList, setToDoList] = useState(data)
@@ -22,9 +23,11 @@ export default function HomePage() {
     }
 
     function editToDo(id, obj) {
+        const updated = { ...obj, id: uuidv4() }
+
         setToDoList(prevToDoList => {
             const filtered = prevToDoList.filter(entry => entry.id !== id)
-            return [...filtered, obj]
+            return [...filtered, updated]
         })
 
         setEditingId(null)
