@@ -5,34 +5,43 @@ export default function EditToDoForm({editToDo, editingId, entry}) {
     }
 
 
-    return (<section>
-        <h1>Editing...</h1>
-        <form action={submitEditedData}>
-            {/* keep fields minimal; id comes from editingId */}
+    return (
+        <div className="modal-backdrop-custom">
+            <section className="modal-custom" role="dialog" aria-modal="true" aria-labelledby="add-todo-title">
 
-            <label htmlFor={"title"}>Title</label>
-            <input id={"title"} type={"text"} name={"title"} defaultValue={entry.title} maxLength={16}/>
+                <header className="modal-header">
+                    <h1 id="add-todo-title" className="hachi-maru-pop-regular rich-black">To Do+</h1>
+                </header>
 
-            <label htmlFor={"description"}>Description</label>
-            <textarea id={"description"}
-                      name={"description"}
-                      defaultValue={entry.description}
-                      maxLength={60}></textarea>
+                <form className="modal-body" action={submitEditedData}>
+                    <label htmlFor={"title"} className="roboto">Title</label>
+                    <input id={"title"} type={"text"} name={"title"} maxLength={10} defaultValue={entry.title}/>
 
-            <fieldset>
-                <legend>Priority</legend>
+                    <label htmlFor={"description"} className="roboto">Description</label>
+                    <textarea id={"description"}
+                              name={"description"}
+                              defaultValue={entry.description}
+                              maxLength={60}></textarea>
 
-                <label htmlFor={"small"}>Small</label>
-                <input id={"small"} type={"radio"} name={"priority"} defaultChecked={true} value={"moon"}/>
+                    <fieldset className="modal-fieldset">
+                        <legend>Priority</legend>
 
-                <label htmlFor={"medium"}>Medium</label>
-                <input id={"medium"} type={"radio"} name={"priority"} value={"planet"}/>
+                        <label htmlFor={"small"}>Small</label>
+                        <input id={"small"} type={"radio"} name={"priority"} defaultChecked={true} value={"moon"}/>
 
-                <label htmlFor={"large"}>Large</label>
-                <input id={"large"} type={"radio"} name={"priority"} value={"sun"}/>
-            </fieldset>
+                        <label htmlFor={"medium"}>Medium</label>
+                        <input id={"medium"} type={"radio"} name={"priority"} value={"planet"}/>
 
-            <button>Save</button>
-        </form>
-    </section>)
+                        <label htmlFor={"large"}>Large</label>
+                        <input id={"large"} type={"radio"} name={"priority"} value={"sun"}/>
+                    </fieldset>
+
+                    <footer className="modal-footer">
+                        <button className="btn-primary">Save+</button>
+                    </footer>
+                </form>
+
+            </section>
+        </div>
+    )
 }

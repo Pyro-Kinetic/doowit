@@ -95,10 +95,10 @@ body {
 /* Make each to-do-item square and prevent growth */
 .to-do-items {
     width: 100%;
-    aspect-ratio: 1 / 1; /* keep squares regardless of content */
+    aspect-ratio: 1 / 1;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* prevent internal overflow from resizing the item */
+    overflow: hidden;
 }
 
 .to-do-items img {
@@ -143,7 +143,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    z-index: 1050; /* above page content */
+    z-index: 1050;
 }
 
 .modal-custom {
