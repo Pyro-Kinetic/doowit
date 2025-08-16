@@ -92,7 +92,7 @@ body {
     align-items: stretch;
 }
 
-/* Make each todo item square and prevent growth */
+/* Make each to-do-item square and prevent growth */
 .to-do-items {
     width: 100%;
     aspect-ratio: 1 / 1; /* keep squares regardless of content */
@@ -133,3 +133,81 @@ body {
 }
 
 
+/* Modals */
+/* Modal styles for AddToDoForm */
+.modal-backdrop-custom {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1050; /* above page content */
+}
+
+.modal-custom {
+    background: #ffffff;
+    width: min(640px, 92vw);
+    max-height: 90vh;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0 1rem 1rem 1rem;
+}
+
+.modal-body input[type="text"],
+.modal-body textarea {
+    width: 100%;
+    padding: 0.5rem 0.6rem;
+    border: 1px solid rgba(1, 22, 39, 0.2);
+    border-radius: 0.375rem;
+    font-family: "Roboto", sans-serif;
+    font-size: 0.95rem;
+    background: #fff;
+}
+
+.modal-body textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.modal-fieldset {
+    border: 1px solid rgba(1, 22, 39, 0.15);
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+}
+
+.modal-footer .btn-primary {
+    background-color: rgb(1, 95, 182);
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 0.9rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+}
+
+.modal-footer .btn-primary:hover {
+    background-color: rgb(243, 101, 29);
+}

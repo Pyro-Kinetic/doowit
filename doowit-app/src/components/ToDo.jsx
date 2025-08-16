@@ -1,14 +1,13 @@
 import moon from "../assets/moon.png"
 import planet from "../assets/planet.png"
 import sun from "../assets/sun.png"
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {library} from '@fortawesome/fontawesome-svg-core'
 
 /* import all the icons in Free Solid, Free Regular, and Brands styles */
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {library} from '@fortawesome/fontawesome-svg-core'
 import {fas} from '@fortawesome/free-solid-svg-icons'
 import {far} from '@fortawesome/free-regular-svg-icons'
 import {fab} from '@fortawesome/free-brands-svg-icons'
-
 library.add(fas, far, fab)
 
 export default function ToDo({entry, removeToDo, setEditingId, setEntry}) {
