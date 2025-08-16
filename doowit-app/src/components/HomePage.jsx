@@ -50,6 +50,10 @@ export default function HomePage() {
         setShow(!show)
     }
 
+    function handleBackdropClick() {
+        if (editingId) setEditingId(null)
+        if (show) handleShow()
+    }
 
     const toDoElements = toDoList.map(entry => {
         return (<ToDo
@@ -65,8 +69,9 @@ export default function HomePage() {
         <img src={dance} className={"img-fluid ms-3"} alt="Illustration of three people dancing"/>
         <h1 className={"hachi-maru-pop-regular rich-black mb-3"}>To Do+</h1>
         <main className={"to-do-item-container"}> {toDoElements} </main>
-        {show && (<AddToDoForm addToDo={addToDo}/>)}
-        {editingId && (<EditToDoForm editToDo={editToDo} editingId={editingId} entry={entry}/>)}
+        {show && (<AddToDoForm addToDo={addToDo} handleShow={handleShow} handleBackdropClick={handleBackdropClick}/>)}
+        {editingId && (<EditToDoForm editToDo={editToDo} editingId={editingId} entry={entry} handleShow={handleShow}
+                                     handleBackdropClick={handleBackdropClick}/>)}
         <div className={"position-sticky bottom-0 py-2"}>
             <FontAwesomeIcon onClick={handleShow}
                              className={"planet d-block mx-auto"}

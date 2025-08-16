@@ -1,4 +1,4 @@
-export default function EditToDoForm({editToDo, editingId, entry}) {
+export default function EditToDoForm({editToDo, editingId, entry, handleBackdropClick}) {
     function submitEditedData(formData) {
         const allData = Object.fromEntries(formData)
         editToDo(editingId, allData)
@@ -6,7 +6,9 @@ export default function EditToDoForm({editToDo, editingId, entry}) {
 
 
     return (
-        <div className="modal-backdrop-custom">
+        <div className="modal-backdrop-custom" onClick={(e) => {
+            if (e.target === e.currentTarget) handleBackdropClick();
+        }}>
             <section className="modal-custom" role="dialog" aria-modal="true" aria-labelledby="add-todo-title">
 
                 <header className="modal-header">

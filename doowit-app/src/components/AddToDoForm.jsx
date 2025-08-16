@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from "uuid";
 
-export default function AddToDoForm({addToDo}) {
+export default function AddToDoForm({addToDo, handleBackdropClick}) {
 
     function submitToDoData(formData) {
         const allData = Object.fromEntries(formData)
@@ -8,7 +8,9 @@ export default function AddToDoForm({addToDo}) {
     }
 
     return (
-        <div className="modal-backdrop-custom">
+        <div className="modal-backdrop-custom" onClick={(e) => {
+            if (e.target === e.currentTarget) handleBackdropClick();
+        }}>
             <section className="modal-custom" role="dialog" aria-modal="true" aria-labelledby="add-todo-title">
 
                 <header className="modal-header">
