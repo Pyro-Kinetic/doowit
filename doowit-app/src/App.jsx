@@ -2,13 +2,13 @@ import HomePage from "./components/HomePage";
 
 function App() {
     return (
-        <>
-            <div className="d-flex justify-content-between">
-                <h1 className={"hachi-maru-pop-bold"}>Doowit !</h1>
-                <button className="btn btn-outline-info">Contact</button>
+        <div className={"container"}>
+            <div className="d-flex justify-content-between mt-3">
+                <h1 className={"hachi-maru-pop-bold rich-black"}>Doowit!</h1>
+                <button className="btn bg-gradient bg-opacity-75 roboto sun-background rich-black">Contact</button>
             </div>
             <HomePage/>
-        </>
+        </div>
     );
 }
 

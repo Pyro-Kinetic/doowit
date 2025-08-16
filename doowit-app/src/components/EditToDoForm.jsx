@@ -11,12 +11,13 @@ export default function EditToDoForm({editToDo, editingId, entry}) {
             {/* keep fields minimal; id comes from editingId */}
 
             <label htmlFor={"title"}>Title</label>
-            <input id={"title"} type={"text"} name={"title"} defaultValue={entry.title}/>
+            <input id={"title"} type={"text"} name={"title"} defaultValue={entry.title} maxLength={16}/>
 
             <label htmlFor={"description"}>Description</label>
             <textarea id={"description"}
                       name={"description"}
-                      defaultValue={entry.description}></textarea>
+                      defaultValue={entry.description}
+                      maxLength={60}></textarea>
 
             <fieldset>
                 <legend>Priority</legend>

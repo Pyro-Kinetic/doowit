@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Chilanka&family=Hachi+Maru+Pop&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 
 .hachi-maru-pop-bold {
     font-family: "Hachi Maru Pop", cursive;
@@ -14,9 +16,120 @@
 }
 
 
+.roboto-light {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+}
+
+.roboto {
+    font-family: "Roboto Thin", sans-serif;
+}
+
+
 body {
     margin: 0;
     box-sizing: border-box;
     background-color: whitesmoke;
 }
+
+
+/* All colors */
+/* Moon Colors */
+.moon {
+    color: rgb(9, 209, 207);
+}
+
+.moon-background {
+    background-color: rgb(9, 209, 207, var(--bs-bg-opacity, 1));
+}
+
+/* Planet Colors */
+.planet {
+    color: rgb(1, 95, 182);
+}
+
+.planet-background {
+    background-color: rgb(1, 95, 182, var(--bs-bg-opacity, 1));
+}
+
+/* Sun Colors */
+.sun {
+    color: rgb(243, 101, 29);
+}
+
+.sun-background {
+    background-color: rgb(243, 101, 29, var(--bs-bg-opacity, 1));
+}
+
+/* Rich Black */
+.rich-black {
+    color: #011627;
+}
+
+.rich-black-background {
+    background-color: #011627;
+}
+
+/* Bitter Sweet */
+.bitter-sweet {
+    color: #f97068;
+}
+
+.bitter-sweet-background, .bitter-sweet-background2 {
+    background-color: #f97068;
+}
+
+
+/* Grid and grid items */
+/* Grid layout for tasks container and items */
+.to-do-item-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    align-items: stretch;
+}
+
+/* Make each todo item square and prevent growth */
+.to-do-items {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* keep squares regardless of content */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* prevent internal overflow from resizing the item */
+}
+
+.to-do-items img {
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+}
+
+/* Avoid header area pushing size */
+.to-do-items .d-flex {
+    flex-shrink: 0;
+}
+
+.to-do-items h2 {
+    margin: 0.3rem 0;
+    font-size: 1.125rem;
+    line-height: 1.2;
+    flex-shrink: 0;
+}
+
+/* Clamp description so it doesn't change item height */
+.to-do-items p {
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: auto;
+}
+
 

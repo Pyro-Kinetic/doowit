@@ -47,13 +47,9 @@ export default function HomePage() {
 
     return (<div className={"d-flex flex-column"}>
         <img src={dance} className={"img-fluid ms-3"} alt="Illustration of three people dancing"/>
-        <h1 className={"hachi-maru-pop-regular mb-3"}>To Do+</h1>
-        <main>
-            {toDoElements}
-        </main>
-        <AddToDoForm
-            addToDo={addToDo}
-        />
+        <h1 className={"hachi-maru-pop-regular rich-black mb-3"}>To Do+</h1>
+        <main className={"to-do-item-container"}> {toDoElements} </main>
+        <AddToDoForm addToDo={addToDo}/>
         {editingId && (<EditToDoForm editToDo={editToDo} editingId={editingId} entry={entry}/>)}
     </div>)
 }
