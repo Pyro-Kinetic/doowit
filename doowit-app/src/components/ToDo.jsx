@@ -35,10 +35,10 @@ export default function ToDo({entry, removeToDo, setEditingId, setEntry}) {
     return (
         <div className={`to-do-items ${toDoItemColorPicker()} bg-gradient bg-opacity-50 rounded-1 p-2 text-center`}>
             <div className={"d-flex align-items-center justify-content-between"}>
-                <img src={imageURL()} alt={"priority icon"}/>
+                <img src={imageURL()} className={"pointer"} alt={"priority icon"}/>
                 <FontAwesomeIcon onClick={setIdAndEntryState} className={"planet"} icon="fa-solid fa-pencil"
                                  size={"lg"}/>
-                <FontAwesomeIcon onClick={handleRemoveToDo} className={"text-danger"} icon="fa-solid fa-square-xmark"
+                <FontAwesomeIcon onClick={handleRemoveToDo} className={"text-danger pointer"} icon="fa-solid fa-square-xmark"
                                  size={"xl"}/>
             </div>
             <h2 className={"hachi-maru-pop-bold"}>{entry.title}</h2>

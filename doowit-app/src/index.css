@@ -35,6 +35,10 @@ body {
     background-color: whitesmoke;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 
 /* All colors */
 /* Moon Colors */
@@ -49,6 +53,7 @@ body {
 /* Planet Colors */
 .planet {
     color: rgb(1, 95, 182);
+    cursor: pointer;
 }
 
 .planet-background {
@@ -134,7 +139,7 @@ body {
 
 
 /* Modals */
-/* Modal styles for AddToDoForm */
+/* Modal styles for AddToDoForm and EdiToDoForm */
 .modal-backdrop-custom {
     position: fixed;
     inset: 0;
