@@ -1,10 +1,8 @@
 import {useState} from "react";
 import danceGraphic from "../assets/dancing.jpg"
-import data from "../appData";
 import AddToDoForm from "./AddToDoForm";
 import EditToDoForm from "./EditToDoForm";
 import ToDo from "./ToDo";
-import {v4 as uuidv4} from "uuid";
 
 /* import all the icons in Free Solid, Free Regular, and Brands styles */
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -15,34 +13,19 @@ import {fab} from '@fortawesome/free-brands-svg-icons'
 
 library.add(fas, far, fab)
 
-export default function HomePage() {
-    const [toDoList, setToDoList] = useState(data)
+export default function HomePage({toDoList, addToDo, removeToDo, editToDo}) {
     const [editingId, setEditingId] = useState(null)
     const [entry, setEntry] = useState(null)
     const [show, setShow] = useState(false)
 
-    function addToDo(obj) {
-        setToDoList(prevToDoList => {
-            return ([...prevToDoList, obj])
-        })
 
-        setShow(!show)
+    function addToDoAndClose(obj) {
+        addToDo(obj)
+        setShow(false)
     }
 
-    function removeToDo(id) {
-        setToDoList(prevToDoList => {
-            return prevToDoList.filter(entry => entry.id !== id)
-        })
-    }
-
-    function editToDo(id, obj) {
-        const updated = {...obj, id: uuidv4()}
-
-        setToDoList(prevToDoList => {
-            const filtered = prevToDoList.filter(entry => entry.id !== id)
-            return [...filtered, updated]
-        })
-
+    function editToDoAndClose(id, obj) {
+        editToDo(id, obj)
         setEditingId(null)
     }
 
@@ -71,8 +54,8 @@ export default function HomePage() {
             <h1 className={"hachi-maru-pop-regular rich-black mb-3"}>To Do+</h1>
             <main className={"to-do-item-container"}> {toDoElements} </main>
             {show && (
-                <AddToDoForm addToDo={addToDo} handleShow={handleShow} handleBackdropClick={handleBackdropClick}/>)}
-            {editingId && (<EditToDoForm editToDo={editToDo} editingId={editingId} entry={entry} handleShow={handleShow}
+                <AddToDoForm addToDo={addToDoAndClose} handleShow={handleShow} handleBackdropClick={handleBackdropClick}/>)}
+            {editingId && (<EditToDoForm editToDo={editToDoAndClose} editingId={editingId} entry={entry} handleShow={handleShow}
                                          handleBackdropClick={handleBackdropClick}/>)}
             <div className={"position-sticky bottom-0 py-2"}>
                 <FontAwesomeIcon onClick={handleShow}

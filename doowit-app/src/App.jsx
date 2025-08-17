@@ -1,10 +1,29 @@
 import HomePage from "./components/HomePage";
 import ContactPage from "./components/ContactPage"
 import {useState} from "react";
+import data from "./appData";
+import {v4 as uuidv4} from "uuid";
 
 function App() {
     const [showHomePage, setShowHomePage] = useState(true)
     const [showContactPage, setShowContactPage] = useState(false)
+    const [toDoList, setToDoList] = useState(data)
+
+    function addToDo(obj) {
+        setToDoList(prev => [...prev, obj])
+    }
+
+    function removeToDo(id) {
+        setToDoList(prev => prev.filter(entry => entry.id !== id))
+    }
+
+    function editToDo(id, obj) {
+        const updated = {...obj, id: uuidv4()}
+        setToDoList(prev => {
+            const filtered = prev.filter(entry => entry.id !== id)
+            return [updated, ...filtered]
+        })
+    }
 
     function togglePages() {
         setShowHomePage(!showHomePage)
@@ -20,7 +39,7 @@ function App() {
                 {showContactPage && (<button onClick={togglePages}
                                              className="btn text-light roboto planet-background planet-hover">Home</button>)}
             </div>
-            {showHomePage && (<HomePage/>)}
+            {showHomePage && (<HomePage toDoList={toDoList} addToDo={addToDo} removeToDo={removeToDo} editToDo={editToDo}/>)}
             {showContactPage && (<ContactPage/>)}
         </div>
     );
