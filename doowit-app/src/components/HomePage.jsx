@@ -76,7 +76,7 @@ export default function HomePage() {
                                          handleBackdropClick={handleBackdropClick}/>)}
             <div className={"position-sticky bottom-0 py-2"}>
                 <FontAwesomeIcon onClick={handleShow}
-                                 className={"planet d-block mx-auto"}
+                                 className={"add-hover d-block mx-auto"}
                                  icon="fa-solid fa-circle-plus"
                                  size={"3x"}/>
             </div>

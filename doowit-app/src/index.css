@@ -51,21 +51,21 @@ body {
 }
 
 /* Planet Colors */
-.planet {
+.planet, .add-hover {
     color: rgb(1, 95, 182);
     cursor: pointer;
 }
 
-.planet-background {
+.planet-background, .planet-hover, .sun-hover:hover {
     background-color: rgb(1, 95, 182, var(--bs-bg-opacity, 1));
 }
 
 /* Sun Colors */
-.sun {
+.sun, .add-hover:hover {
     color: rgb(243, 101, 29);
 }
 
-.sun-background {
+.sun-background, .sun-hover, .planet-hover:hover {
     background-color: rgb(243, 101, 29, var(--bs-bg-opacity, 1));
 }
 
