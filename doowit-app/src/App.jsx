@@ -15,8 +15,10 @@ function App() {
         <div className={"container"}>
             <div className="d-flex justify-content-between mt-3">
                 <h1 className={"hachi-maru-pop-bold rich-black"}>Doowit!</h1>
-                {showHomePage && (<button onClick={togglePages} className="btn bg-gradient bg-opacity-75 roboto sun-background rich-black">Contact</button>)}
-                {showContactPage && (<button onClick={togglePages} className="btn bg-gradient bg-opacity-75 roboto sun-background rich-black">Home</button>)}
+                {showHomePage && (<button onClick={togglePages}
+                                          className="btn bg-gradient bg-opacity-75 roboto sun-background sun-hover rich-black">Contact</button>)}
+                {showContactPage && (<button onClick={togglePages}
+                                             className="btn bg-gradient bg-opacity-75 roboto planet-background planet-hover rich-black">Home</button>)}
             </div>
             {showHomePage && (<HomePage/>)}
             {showContactPage && (<ContactPage/>)}
