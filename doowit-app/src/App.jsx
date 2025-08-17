@@ -52,7 +52,7 @@ function App() {
         setShowCompletedOnly(prev => !prev)
     }
 
-    function isChecked(){
+    function isChecked() {
         return showCompletedOnly ? "btn-success" : "btn-primary"
     }
 
@@ -83,7 +83,7 @@ function App() {
             </div>
             {showHomePage && (
                 <HomePage toDoList={displayedList} addToDo={addToDo} removeToDo={removeToDo} editToDo={editToDo}
-                          completeToDo={completeToDo}/>)}
+                          completeToDo={completeToDo} showCompletedOnly={showCompletedOnly}/>)}
             {showContactPage && (<ContactPage/>)}
         </div>
     );

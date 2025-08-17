@@ -13,7 +13,7 @@ import {fab} from '@fortawesome/free-brands-svg-icons'
 
 library.add(fas, far, fab)
 
-export default function HomePage({toDoList, addToDo, removeToDo, editToDo, completeToDo}) {
+export default function HomePage({toDoList, addToDo, removeToDo, editToDo, completeToDo, showCompletedOnly}) {
     const [editingId, setEditingId] = useState(null)
     const [entry, setEntry] = useState(null)
     const [show, setShow] = useState(false)
@@ -49,15 +49,20 @@ export default function HomePage({toDoList, addToDo, removeToDo, editToDo, compl
         />)
     })
 
+    const renderContent = () => {
+        const paragraph = showCompletedOnly ?
+            "No completed to-dos yet. Mark to-dos as done to see them here!" :
+            "No to-dos yet. Click the + to add your first task!"
+        return toDoList.length === 0 ?
+            <p className={"roboto-light text-center text-muted my-4"}>{paragraph}</p> : toDoElements
+    }
+
     return (
         <div className={"d-flex flex-column"}>
             <img src={danceGraphic} className={"img-fluid ms-3"} alt="Illustration of three people dancing"/>
             <h1 className={"hachi-maru-pop-regular rich-black mb-3"}>To Do+</h1>
             <main className={"to-do-item-container"}>
-                {toDoList.length === 0 ? (
-                    <p className={"roboto-light text-center text-muted my-4"}>No to-dos yet. Click the + to add your
-                        first task!</p>
-                ) : toDoElements}
+                {renderContent()}
             </main>
             {show && (
                 <AddToDoForm addToDo={addToDoAndClose} handleShow={handleShow}
