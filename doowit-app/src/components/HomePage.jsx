@@ -53,11 +53,18 @@ export default function HomePage({toDoList, addToDo, removeToDo, editToDo, compl
         <div className={"d-flex flex-column"}>
             <img src={danceGraphic} className={"img-fluid ms-3"} alt="Illustration of three people dancing"/>
             <h1 className={"hachi-maru-pop-regular rich-black mb-3"}>To Do+</h1>
-            <main className={"to-do-item-container"}> {toDoElements} </main>
+            <main className={"to-do-item-container"}>
+                {toDoList.length === 0 ? (
+                    <p className={"roboto-light text-center text-muted my-4"}>No to-dos yet. Click the + to add your
+                        first task!</p>
+                ) : toDoElements}
+            </main>
             {show && (
-                <AddToDoForm addToDo={addToDoAndClose} handleShow={handleShow} handleBackdropClick={handleBackdropClick}/>)}
-            {editingId && (<EditToDoForm editToDo={editToDoAndClose} editingId={editingId} entry={entry} handleShow={handleShow}
-                                         handleBackdropClick={handleBackdropClick}/>)}
+                <AddToDoForm addToDo={addToDoAndClose} handleShow={handleShow}
+                             handleBackdropClick={handleBackdropClick}/>)}
+            {editingId && (
+                <EditToDoForm editToDo={editToDoAndClose} editingId={editingId} entry={entry} handleShow={handleShow}
+                              handleBackdropClick={handleBackdropClick}/>)}
             <div className={"position-sticky bottom-0 py-2"}>
                 <FontAwesomeIcon onClick={handleShow}
                                  className={"add-hover d-block mx-auto"}
