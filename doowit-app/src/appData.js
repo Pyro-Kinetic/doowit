@@ -1,6 +1,7 @@
 const data = [
     {
         id: 1,
+        completed: false,
         priority: "moon",
         title: "Grocery shop",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
@@ -8,6 +9,7 @@ const data = [
     },
     {
         id: 2,
+        completed: false,
         priority: "planet",
         title: "Planet",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
@@ -15,6 +17,7 @@ const data = [
     },
     {
         id: 3,
+        completed: false,
         priority: "sun",
         title: "Peep",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
@@ -22,6 +25,7 @@ const data = [
     },
     {
         id: 4,
+        completed: false,
         priority: "moon",
         title: "diff",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +

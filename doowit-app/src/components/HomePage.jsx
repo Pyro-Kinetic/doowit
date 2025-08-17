@@ -13,7 +13,7 @@ import {fab} from '@fortawesome/free-brands-svg-icons'
 
 library.add(fas, far, fab)
 
-export default function HomePage({toDoList, addToDo, removeToDo, editToDo}) {
+export default function HomePage({toDoList, addToDo, removeToDo, editToDo, completeToDo}) {
     const [editingId, setEditingId] = useState(null)
     const [entry, setEntry] = useState(null)
     const [show, setShow] = useState(false)
@@ -45,6 +45,7 @@ export default function HomePage({toDoList, addToDo, removeToDo, editToDo}) {
             removeToDo={removeToDo}
             setEditingId={setEditingId}
             setEntry={setEntry}
+            completeToDo={completeToDo}
         />)
     })
 

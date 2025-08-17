@@ -10,6 +10,7 @@ function App() {
     const [toDoList, setToDoList] = useState(data)
 
     function addToDo(obj) {
+        obj["completed"] = false
         setToDoList(prev => [...prev, obj])
     }
 
@@ -18,10 +19,17 @@ function App() {
     }
 
     function editToDo(id, obj) {
+        obj["completed"] = false
         const updated = {...obj, id: uuidv4()}
         setToDoList(prev => {
             const filtered = prev.filter(entry => entry.id !== id)
             return [updated, ...filtered]
+        })
+    }
+
+    function completeToDo(id) {
+        setToDoList(prev => {
+            return prev.map(entry => entry.id === id ? {...entry, completed: true, priority: "star"} : entry)
         })
     }
 
@@ -39,7 +47,9 @@ function App() {
                 {showContactPage && (<button onClick={togglePages}
                                              className="btn text-light roboto planet-background planet-hover">Home</button>)}
             </div>
-            {showHomePage && (<HomePage toDoList={toDoList} addToDo={addToDo} removeToDo={removeToDo} editToDo={editToDo}/>)}
+            {showHomePage && (
+                <HomePage toDoList={toDoList} addToDo={addToDo} removeToDo={removeToDo} editToDo={editToDo}
+                          completeToDo={completeToDo}/>)}
             {showContactPage && (<ContactPage/>)}
         </div>
     );
