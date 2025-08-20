@@ -24,10 +24,10 @@ export default function ContactPage() {
     }
 
     return (
-        <div className={"d-flex flex-column mb-3"}>
-            <img src={contactGraphic} className={"img-fluid mb-3"} alt="Illustration of three people dancing"/>
+        <div className={"contact-layout mb-3"}>
+            <img src={contactGraphic} className={"img-fluid mb-3 contact-image"} alt="Illustration of three people dancing"/>
 
-            <section className="modal-custom">
+            <section className="modal-custom contact-form">
                 <header className="modal-header">
                     <h2 className="hachi-maru-pop-regular rich-black m-0">Contact Us</h2>
                 </header>

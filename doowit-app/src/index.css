@@ -145,6 +145,30 @@ body {
 }
 
 
+/* Contact page layout*/
+.contact-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.contact-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.contact-form {
+    width: 100%;
+    display: block;
+}
+
+
 /* Modals */
 
 /* Modal styles for AddToDoForm and EdiToDoForm */
@@ -228,7 +252,7 @@ body {
 /* Media queries */
 
 /* Small phones */
-@media (max-width: 360px) {
+@media (min-width: 360px) {
     .to-do-item-container {
         grid-template-columns: 1fr;
         gap: 0.5rem;
@@ -258,9 +282,9 @@ body {
 }
 
 /* Phones */
-@media (max-width: 430px) {
+@media (min-width: 375px) {
     .to-do-item-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .modal-body textarea {
@@ -269,7 +293,7 @@ body {
 }
 
 /* Small tablets */
-@media (max-width: 640px) {
+@media (min-width: 640px) {
     .to-do-items p {
         -webkit-line-clamp: 5;
     }
@@ -334,5 +358,19 @@ body {
 
     .app-image {
         margin-left: 0;
+    }
+
+    /* Contact page */
+    .contact-layout {
+        display: grid;
+        grid-template-columns: 1fr min(640px, 48%);
+        gap: 2rem;
+        align-items: start;
+    }
+
+    .contact-form.modal-custom {
+        width: 100%;
+        max-width: 640px;
+        margin: 2rem 0 0 0;
     }
 }
