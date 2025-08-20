@@ -58,24 +58,30 @@ export default function HomePage({toDoList, addToDo, removeToDo, editToDo, compl
     }
 
     return (
-        <div className={"d-flex flex-column"}>
-            <img src={danceGraphic} className={"img-fluid ms-3"} alt="Illustration of three people dancing"/>
-            <h1 className={"hachi-maru-pop-regular rich-black mb-3"}>To Do+</h1>
-            <main className={"to-do-item-container"}>
-                {renderContent()}
-            </main>
+        <div className={"home-layout"}>
+            <div className={"left-pane"}>
+                <img src={danceGraphic} className={"app-image img-fluid"} alt="Illustration of three people dancing"/>
+                <div className={"add-container position-sticky bottom-0 py-2"}>
+                    <FontAwesomeIcon onClick={handleShow}
+                                     className={"add-to-do add-hover d-block mx-auto"}
+                                     icon="fa-solid fa-circle-plus"
+                                     size={"3x"}/>
+                </div>
+            </div>
+
+            <div className={"right-pane"}>
+                <h1 className={"hachi-maru-pop-regular rich-black mb-3"}>To Do+</h1>
+                <main className={"to-do-item-container"}>
+                    {renderContent()}
+                </main>
+            </div>
+
             {show && (
                 <AddToDoForm addToDo={addToDoAndClose} handleShow={handleShow}
                              handleBackdropClick={handleBackdropClick}/>)}
             {editingId && (
                 <EditToDoForm editToDo={editToDoAndClose} editingId={editingId} entry={entry} handleShow={handleShow}
                               handleBackdropClick={handleBackdropClick}/>)}
-            <div className={"position-sticky bottom-0 py-2"}>
-                <FontAwesomeIcon onClick={handleShow}
-                                 className={"add-hover d-block mx-auto"}
-                                 icon="fa-solid fa-circle-plus"
-                                 size={"3x"}/>
-            </div>
         </div>
     )
 }
