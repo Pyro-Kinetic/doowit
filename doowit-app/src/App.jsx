@@ -21,7 +21,7 @@ function App() {
 
     function addToDo(obj) {
         obj["completed"] = false
-        setToDoList(prev => [...prev, obj])
+        setToDoList(prev => [obj, ...prev])
     }
 
     function removeToDo(id) {

@@ -3,34 +3,24 @@ const data = [
         id: 1,
         completed: false,
         priority: "moon",
-        title: "Grocery shop",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-            "Donec diam metus, tristique nec erat id, vehicula posuere orci. "
+        title: "Bedroom",
+        description: "Change sheets and pillow cases. Put away clothes, placing dirty items in the hamper and clean ones in their proper place."
     },
     {
         id: 2,
         completed: false,
         priority: "planet",
-        title: "Planet",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-            "Donec diam metus, tristique nec erat id, vehicula posuere orci. "
+        title: "Grocery shopping !",
+        description: "Visit the store tomorrow at 2 p.m. to buy fresh apples, bananas, broccoli, spinach, and potatoes."
     },
     {
         id: 3,
         completed: false,
         priority: "sun",
-        title: "Peep",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-            "Donec diam metus, tristique nec erat id, vehicula posuere orci. "
+        title: "Work !!",
+        description: "Email Sara the revised contract terms by Friday. " +
+            "Complete all assignments by tomorrow to avoid missing the deadline."
     },
-    {
-        id: 4,
-        completed: false,
-        priority: "moon",
-        title: "diff",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-            "Donec diam metus, tristique nec erat id, vehicula posuere orci. "
-    }
 ]
 
 export default data

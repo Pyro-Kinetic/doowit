@@ -74,7 +74,7 @@ export default function ToDo({entry, removeToDo, setEditingId, setEntry, complet
                 <div className="modal-backdrop-custom" onClick={handleClick}>
                     <section className="modal-custom" role="dialog" aria-modal="true"
                              aria-labelledby={`view-todo-title-${entry.id}`}>
-                        <header className="modal-header">
+                        <header className={`modal-header ${toDoItemColorPicker()}`}>
                             <h1 id={`view-todo-title-${entry.id}`}
                                 className="hachi-maru-pop-regular rich-black">{entry.title}</h1>
                         </header>
