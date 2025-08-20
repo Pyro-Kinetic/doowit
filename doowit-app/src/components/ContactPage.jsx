@@ -25,7 +25,8 @@ export default function ContactPage() {
 
     return (
         <div className={"contact-layout mb-3"}>
-            <img src={contactGraphic} className={"img-fluid mb-3 contact-image"} alt="Illustration of three people dancing"/>
+            <img src={contactGraphic} className={"img-fluid mb-3 contact-image"}
+                 alt="Illustration of three people dancing"/>
 
             <section className="modal-custom contact-form">
                 <header className="modal-header">

@@ -1,3 +1,4 @@
+import {useState} from "react";
 import moon from "../assets/moon.png"
 import planet from "../assets/planet.png"
 import sun from "../assets/sun.png"
@@ -13,6 +14,8 @@ import {fab} from '@fortawesome/free-brands-svg-icons'
 library.add(fas, far, fab)
 
 export default function ToDo({entry, removeToDo, setEditingId, setEntry, completeToDo}) {
+    const [showView, setShowView] = useState(false)
+
     const imageURL = () => {
         if (entry.priority === "moon") return moon
         else if (entry.priority === "planet") return planet
@@ -40,6 +43,18 @@ export default function ToDo({entry, removeToDo, setEditingId, setEntry, complet
         setEntry(entry)
     }
 
+    function openViewModal() {
+        setShowView(true)
+    }
+
+    function closeViewModal() {
+        setShowView(false)
+    }
+
+    function handleClick(e) {
+        if (e.target === e.currentTarget) closeViewModal();
+    }
+
     return (
         <div className={`to-do-items ${toDoItemColorPicker()} bg-gradient bg-opacity-50 rounded-1 p-2 text-center`}>
             <div className={"d-flex align-items-center justify-content-between"}>
@@ -50,8 +65,28 @@ export default function ToDo({entry, removeToDo, setEditingId, setEntry, complet
                                  icon="fa-solid fa-square-xmark"
                                  size={"xl"}/>
             </div>
-            <h2 className={"hachi-maru-pop-bold"}>{entry.title}</h2>
-            <p className={"roboto-light"}>{entry.description}</p>
+            <div className={"pointer"} onClick={openViewModal}>
+                <h2 className={"hachi-maru-pop-bold"}>{entry.title}</h2>
+                <p className={"roboto-light"}>{entry.description}</p>
+            </div>
+
+            {showView && (
+                <div className="modal-backdrop-custom" onClick={handleClick}>
+                    <section className="modal-custom" role="dialog" aria-modal="true"
+                             aria-labelledby={`view-todo-title-${entry.id}`}>
+                        <header className="modal-header">
+                            <h1 id={`view-todo-title-${entry.id}`}
+                                className="hachi-maru-pop-regular rich-black">{entry.title}</h1>
+                        </header>
+                        <div className="modal-body">
+                            <p className="roboto-light" style={{whiteSpace: 'pre-wrap'}}>{entry.description}</p>
+                            <footer className="modal-footer">
+                                <button className="btn-primary" onClick={closeViewModal}>Close</button>
+                            </footer>
+                        </div>
+                    </section>
+                </div>
+            )}
         </div>
     )
 }
