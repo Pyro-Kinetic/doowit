@@ -252,7 +252,7 @@ body {
 /* Media queries */
 
 /* Small phones */
-@media (min-width: 360px) {
+@media (max-width: 360px) {
     .to-do-item-container {
         grid-template-columns: 1fr;
         gap: 0.5rem;

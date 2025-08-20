@@ -21,13 +21,13 @@ export default function AddToDoForm({addToDo, handleBackdropClick}) {
                     <input className={"d-none"} type={"text"} name={"id"} defaultValue={uuidv4()}/>
 
                     <label htmlFor={"title"} className="roboto">Title</label>
-                    <input id={"title"} type={"text"} name={"title"} maxLength={10} placeholder={"Add a new task..."}/>
+                    <input id={"title"} type={"text"} name={"title"} maxLength={25} placeholder={"Add a new task..."}/>
 
                     <label htmlFor={"description"} className="roboto">Description</label>
                     <textarea id={"description"}
                               name={"description"}
                               placeholder={"Enter task description (e.g., Email Sarah the revised contract terms by Friday)"}
-                              maxLength={60}></textarea>
+                              maxLength={150}></textarea>
 
                     <fieldset className="modal-fieldset">
                         <legend>Priority</legend>

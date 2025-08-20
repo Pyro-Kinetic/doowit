@@ -17,13 +17,13 @@ export default function EditToDoForm({editToDo, editingId, entry, handleBackdrop
 
                 <form className="modal-body" action={submitEditedData}>
                     <label htmlFor={"title"} className="roboto">Title</label>
-                    <input id={"title"} type={"text"} name={"title"} maxLength={10} defaultValue={entry.title}/>
+                    <input id={"title"} type={"text"} name={"title"} maxLength={25} defaultValue={entry.title}/>
 
                     <label htmlFor={"description"} className="roboto">Description</label>
                     <textarea id={"description"}
                               name={"description"}
                               defaultValue={entry.description}
-                              maxLength={60}></textarea>
+                              maxLength={150}></textarea>
 
                     <fieldset className="modal-fieldset">
                         <legend>Priority</legend>
