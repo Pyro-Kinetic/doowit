@@ -1,4 +1,8 @@
+# Doowit - A to do app
 A playful and intuitive to-do app that uses cosmic-themed priorities to help you organize and manage your tasks. Built with React and featuring a vibrant, responsive design.
+
+![giphy meme](https://github.com/user-attachments/assets/71ed90eb-809d-4a2b-9d2a-fb89ec0b8a05)<!-- Meme image representation of the page -->
+
 ## ✨ Features
 - **Cosmic Priority System**: Organize tasks with four visual priority levels:
     - 🌙 **Moon** - Low priority
