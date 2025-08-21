@@ -17,7 +17,7 @@ export default function EditToDoForm({editToDo, editingId, entry, handleBackdrop
 
                 <form className="modal-body" action={submitEditedData}>
                     <label htmlFor={"title"} className="roboto">Title</label>
-                    <input id={"title"} type={"text"} name={"title"} maxLength={25} defaultValue={entry.title}/>
+                    <input id={"title"} type={"text"} name={"title"} maxLength={25} defaultValue={entry.title} required/>
 
                     <label htmlFor={"description"} className="roboto">Description</label>
                     <textarea id={"description"}
