@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/doowit/static/css/main.4a8b429b.css",
-    "main.js": "/doowit/static/js/main.e41637ad.js",
+    "main.css": "/doowit/static/css/main.8c4a7485.css",
+    "main.js": "/doowit/static/js/main.e8aa2107.js",
     "static/js/453.5edbded2.chunk.js": "/doowit/static/js/453.5edbded2.chunk.js",
     "static/media/sun.png": "/doowit/static/media/sun.e4df0ea0562146d9cd89.png",
     "static/media/moon.png": "/doowit/static/media/moon.b00bb02b316aab449b0e.png",
@@ -10,12 +10,12 @@
     "static/media/dancing.jpg": "/doowit/static/media/dancing.d0d328acd69a40ed5e6b.jpg",
     "static/media/contact.jpg": "/doowit/static/media/contact.a30ac7cfacc8d4540ab9.jpg",
     "index.html": "/doowit/index.html",
-    "main.4a8b429b.css.map": "/doowit/static/css/main.4a8b429b.css.map",
-    "main.e41637ad.js.map": "/doowit/static/js/main.e41637ad.js.map",
+    "main.8c4a7485.css.map": "/doowit/static/css/main.8c4a7485.css.map",
+    "main.e8aa2107.js.map": "/doowit/static/js/main.e8aa2107.js.map",
     "453.5edbded2.chunk.js.map": "/doowit/static/js/453.5edbded2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4a8b429b.css",
-    "static/js/main.e41637ad.js"
+    "static/css/main.8c4a7485.css",
+    "static/js/main.e8aa2107.js"
   ]
 }
