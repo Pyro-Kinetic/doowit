@@ -1,4 +1,5 @@
 import {useState} from "react";
+import axios from "axios"
 
 export default function Register({handleBackdropClick}) {
     const [formData, setFormData] = useState({
@@ -16,15 +17,30 @@ export default function Register({handleBackdropClick}) {
         }));
     }
 
+    async function postUserData(url) {
+        try {
+            const response = await axios.post(url, formData);
+            console.log('Success, status code:', response.status);
+            console.log(response.data);
+            setError("")
+        } catch (error) {
+            console.error('Error details:', error.message);
+            setError(error.message)
+        }
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
+        const baseUrl = 'http://localhost:8000/api/authorization/register'
+
         if (formData.password !== formData.confirmPassword) {
             setError("Passwords do not match!");
             return;
         }
+
         setError("");
-        console.log("Form submitted:", formData);
-        // Add registration logic here if needed
+        postUserData(baseUrl)
+
         handleBackdropClick();
     }
 

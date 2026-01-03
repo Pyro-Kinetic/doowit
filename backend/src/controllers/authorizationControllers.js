@@ -1,4 +1,9 @@
-export async function registerUser(req, res) {
+export async function register(req, res) {
+    const {email, password, confirmPassword} = req.body
+    console.log('email:', email)
+    console.log('password:', password)
+    console.log('confirmPassword:', confirmPassword)
+
     res.status(201).json({message: 'Registration successful.'})
 }
 

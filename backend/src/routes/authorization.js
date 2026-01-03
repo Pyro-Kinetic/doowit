@@ -1,10 +1,10 @@
 import express from "express";
-import {registerUser, login, logout} from "../controllers/authorizationControllers.js"
+import {register, login, logout} from "../controllers/authorizationControllers.js"
 
 export const authorizationRouter = express.Router()
 
 // register
-authorizationRouter.get('/register', registerUser)
+authorizationRouter.post('/register', register)
 
 // login
 authorizationRouter.get('/login', login)
