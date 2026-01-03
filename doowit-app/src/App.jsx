@@ -1,5 +1,6 @@
 import HomePage from "./components/HomePage";
 import ContactPage from "./components/ContactPage"
+import LoginPage from "./components/LoginPage";
 import {useState} from "react";
 import data from "./appData";
 import {v4 as uuidv4} from "uuid";
@@ -14,7 +15,8 @@ import {fab} from '@fortawesome/free-brands-svg-icons'
 library.add(fas, far, fab)
 
 function App() {
-    const [showHomePage, setShowHomePage] = useState(true)
+    const [showLogin, setShowLogin] = useState(true)
+    const [showHomePage, setShowHomePage] = useState(false)
     const [showContactPage, setShowContactPage] = useState(false)
     const [toDoList, setToDoList] = useState(data)
     const [showCompletedOnly, setShowCompletedOnly] = useState(false)
@@ -43,7 +45,14 @@ function App() {
         })
     }
 
+    function showLoginPage() {
+        setShowLogin(true)
+        setShowHomePage(false)
+        setShowContactPage(false)
+    }
+
     function togglePages() {
+        setShowLogin(false)
         setShowHomePage(!showHomePage)
         setShowContactPage(!showContactPage)
     }
@@ -61,8 +70,14 @@ function App() {
     return (
         <div className={"container"}>
             <div className="d-flex justify-content-between align-items-center mt-3">
-                <h1 className={"hachi-maru-pop-bold rich-black"}>Doowit!</h1>
+                <h1 onClick={showLoginPage} className={"hachi-maru-pop-bold rich-black pointer"}>Doowit!</h1>
                 <div className="d-flex align-items-center gap-2">
+                    {showLogin && (
+                        <button onClick={() => {
+                            setShowLogin(false)
+                            setShowHomePage(true)
+                        }} className="btn roboto planet-background planet-hover text-light">Guest Mode</button>
+                    )}
                     {showHomePage && (
                         <>
                             <FontAwesomeIcon onClick={toggleShowCompleted}
@@ -81,6 +96,7 @@ function App() {
                     )}
                 </div>
             </div>
+            {showLogin && <LoginPage/>}
             {showHomePage && (
                 <HomePage toDoList={displayedList} addToDo={addToDo} removeToDo={removeToDo} editToDo={editToDo}
                           completeToDo={completeToDo} showCompletedOnly={showCompletedOnly}/>)}
