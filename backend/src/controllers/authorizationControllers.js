@@ -1,13 +1,10 @@
+import bcrypt from 'bcryptjs'
 import validator from 'validator'
+import {getDBConnection} from "../db/connect.js";
 
 export async function register(req, res) {
     const {email, password, confirmPassword} = req.body
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/
-
-    console.log('email:', email)
-    console.log('password:', password)
-    console.log('confirmPassword:', confirmPassword)
-    console.log('Request body:', req.body)
 
     if (!email) {
         return res.status(400).json({message: "Please enter your email"})
@@ -31,8 +28,34 @@ export async function register(req, res) {
         return res.status(400).json({message: "Invalid email format"})
     }
 
+    try {
+        // database connector
+        const connection = await getDBConnection()
 
-    res.status(201).json({message: 'Thanks for signing up!'})
+        // query checks if this user exists
+        const getUserQuery = 'SELECT id FROM users WHERE email = ?'
+        const [rows] = await connection.execute(getUserQuery, [email])
+
+        // deny registration if user exists
+        if (rows.length > 0) {
+            connection.end()
+            return res.status(400).json({message: 'User with this email already exists'})
+        }
+
+        // password hash
+        const hashedPassword = await bcrypt.hash(password, 10)
+
+        // query inserts new user
+        const insertUserQuery = 'INSERT INTO users (email, password) VALUES (?, ?)'
+        await connection.execute(insertUserQuery, [email, hashedPassword])
+
+        connection.end()
+        res.status(201).json({message: 'Thanks for signing up!'})
+
+    } catch (error) {
+        console.error('Error during registration:', error)
+        return res.status(500).json({message: 'An error occurred during registration. Please try again later.'})
+    }
 }
 
 export async function login(req, res) {
