@@ -1,28 +1,26 @@
 import {useState} from "react";
 import axios from "axios"
 
-export default function Register({handleBackdropClick}) {
+export default function Register({handleBackdropClick, setMessage, setError, error}) {
     const [formData, setFormData] = useState({
-        email: "",
-        password: "",
-        confirmPassword: ""
+        email: "", password: "", confirmPassword: ""
     });
-    const [error, setError] = useState("");
+
+    function handleClick(e) {
+        if (e.target === e.currentTarget) handleBackdropClick();
+    }
 
     function handleChange(e) {
         const {name, value} = e.target;
         setFormData(prev => ({
-            ...prev,
-            [name]: value
+            ...prev, [name]: value
         }));
     }
 
     async function postUserData(url) {
         try {
             const response = await axios.post(url, formData);
-            console.log('Success, status code:', response.status);
-            console.log(response.data);
-            setError("")
+            setMessage(response.data.message);
         } catch (error) {
             console.error('Error details:', error.message);
             setError(error.message)
@@ -34,7 +32,7 @@ export default function Register({handleBackdropClick}) {
         const baseUrl = 'http://localhost:8000/api/authorization/register'
 
         if (formData.password !== formData.confirmPassword) {
-            setError("Passwords do not match!");
+            setError("Passwords do not match");
             return;
         }
 
@@ -45,9 +43,7 @@ export default function Register({handleBackdropClick}) {
     }
 
     return (
-        <div className="modal-backdrop-custom" onClick={(e) => {
-            if (e.target === e.currentTarget) handleBackdropClick();
-        }}>
+        <div className="modal-backdrop-custom" onClick={handleClick}>
             <section className="modal-custom" role="dialog" aria-modal="true" aria-labelledby="register-title">
                 <header className="modal-header">
                     <h1 id="register-title" className="hachi-maru-pop-regular rich-black">Sign Up</h1>
@@ -91,6 +87,5 @@ export default function Register({handleBackdropClick}) {
                     </footer>
                 </form>
             </section>
-        </div>
-    );
+        </div>);
 }

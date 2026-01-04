@@ -6,12 +6,18 @@ import danceGraphic from "../assets/dancing.jpg"
 export default function LoginPage() {
     const [showRegisterModal, setShowRegisterModal] = useState(false);
     const [showLoginModal, setShowLoginModal] = useState(false);
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState("");
 
     function toggleRegisterModal() {
+        setError("")
+        setMessage("");
         setShowRegisterModal(!showRegisterModal);
     }
 
     function toggleLoginModal() {
+        setError("")
+        setMessage("");
         setShowLoginModal(!showLoginModal);
     }
 
@@ -34,9 +40,11 @@ export default function LoginPage() {
                     <button onClick={toggleRegisterModal} className="btn sun-background sun-hover text-dark roboto">Sign Up
                     </button>
                 </div>
+                {message && <p className="text-success roboto mt-3">{message}</p>}
+                {error && <p className="text-danger roboto-light mt-3">{error}</p>}
             </div>
 
-            {showRegisterModal && <Register handleBackdropClick={handleBackdropClick}/>}
+            {showRegisterModal && <Register handleBackdropClick={handleBackdropClick} setMessage={setMessage} setError={setError} error={error}/>}
             {showLoginModal && <Login handleBackdropClick={handleBackdropClick}/>}
         </div>
     );
