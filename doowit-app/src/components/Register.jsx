@@ -21,9 +21,9 @@ export default function Register({handleBackdropClick, setMessage, setError, err
         try {
             const response = await axios.post(url, formData);
             setMessage(response.data.message);
+            handleBackdropClick();
         } catch (error) {
-            console.error('Error details:', error.message);
-            setError(error.message)
+            setError(error.response?.data?.message || error.message)
         }
     }
 
@@ -38,8 +38,6 @@ export default function Register({handleBackdropClick, setMessage, setError, err
 
         setError("");
         postUserData(baseUrl)
-
-        handleBackdropClick();
     }
 
     return (

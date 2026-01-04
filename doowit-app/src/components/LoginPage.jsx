@@ -40,8 +40,8 @@ export default function LoginPage() {
                     <button onClick={toggleRegisterModal} className="btn sun-background sun-hover text-dark roboto">Sign Up
                     </button>
                 </div>
-                {message && <p className="text-success roboto mt-3">{message}</p>}
-                {error && <p className="text-danger roboto-light mt-3">{error}</p>}
+                {message && <p className="text-success roboto mt-3 text-center">{message}</p>}
+                {error && <p className="text-danger roboto-light mt-3 text-center">{error}</p>}
             </div>
 
             {showRegisterModal && <Register handleBackdropClick={handleBackdropClick} setMessage={setMessage} setError={setError} error={error}/>}
