@@ -1,10 +1,15 @@
 import {useState} from "react";
+import {postUserData} from "../utils/postUserData";
 
-export default function Login({handleBackdropClick}) {
+export default function Login({handleBackdropClick, setMessage, setError, error}) {
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     });
+
+    function handleClick(e) {
+        if (e.target === e.currentTarget) handleBackdropClick();
+    }
 
     function handleChange(e) {
         const {name, value} = e.target;
@@ -16,15 +21,14 @@ export default function Login({handleBackdropClick}) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("Login submitted:", formData);
-        // Add login logic here if needed
-        handleBackdropClick();
+        const baseUrl = 'http://localhost:8000/api/authorization/login'
+
+        setError('')
+        postUserData(baseUrl, formData, handleBackdropClick, setMessage, setError)
     }
 
     return (
-        <div className="modal-backdrop-custom" onClick={(e) => {
-            if (e.target === e.currentTarget) handleBackdropClick();
-        }}>
+        <div className="modal-backdrop-custom" onClick={handleClick}>
             <section className="modal-custom" role="dialog" aria-modal="true" aria-labelledby="login-title">
                 <header className="modal-header">
                     <h1 id="login-title" className="hachi-maru-pop-regular rich-black">Login</h1>
@@ -50,6 +54,8 @@ export default function Login({handleBackdropClick}) {
                         onChange={handleChange}
                         required
                     />
+
+                    {error && <p className="text-danger roboto-light">{error}</p>}
 
                     <footer className="modal-footer">
                         <button type="submit" className="btn-primary">Login</button>

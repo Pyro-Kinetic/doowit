@@ -45,7 +45,7 @@ export default function LoginPage() {
             </div>
 
             {showRegisterModal && <Register handleBackdropClick={handleBackdropClick} setMessage={setMessage} setError={setError} error={error}/>}
-            {showLoginModal && <Login handleBackdropClick={handleBackdropClick}/>}
+            {showLoginModal && <Login handleBackdropClick={handleBackdropClick} setMessage={setMessage} setError={setError} error={error}/>}
         </div>
     );
 }

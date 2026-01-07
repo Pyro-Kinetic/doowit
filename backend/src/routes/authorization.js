@@ -7,7 +7,7 @@ export const authorizationRouter = express.Router()
 authorizationRouter.post('/register', register)
 
 // login
-authorizationRouter.get('/login', login)
+authorizationRouter.post('/login', login)
 
 // logout
 authorizationRouter.get('/logout', logout)

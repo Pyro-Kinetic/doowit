@@ -33,6 +33,7 @@ export async function register(req, res) {
         const connection = await getDBConnection()
 
         // query checks if this user exists
+        // might add to utils function
         const getUserQuery = 'SELECT id FROM users WHERE email = ?'
         const [rows] = await connection.execute(getUserQuery, [email])
 
@@ -53,13 +54,66 @@ export async function register(req, res) {
         res.status(201).json({message: 'Thanks for signing up!'})
 
     } catch (error) {
-        console.error('Error during registration:', error)
         return res.status(500).json({message: 'An error occurred during registration. Please try again later.'})
     }
 }
 
 export async function login(req, res) {
-    res.status(200).json({message: 'All set! Ready to go.'})
+    const { email, password } = req.body
+
+    if (!email || !password) {
+        return res.status(400).json({message: 'Email and password are required'})
+    }
+
+    try {
+        const connection = await getDBConnection()
+
+        // query checks if the user exists, might add to utils function...
+        const getUserQuery = 'SELECT id FROM users WHERE email = ?'
+        const [idRows] = await connection.execute(getUserQuery, [email])
+
+        // return if the user does not exist
+        if (idRows.length <= 0){
+            connection.end()
+            return res.status(401).json({message: 'Invalid email or password'})
+        }
+
+        // query gets the user's hashed password
+        const getPassAndIdQuery = 'SELECT password as storedHash, id as storedId FROM users WHERE email = ?'
+        const [passwordAndIdRows] = await connection.execute(getPassAndIdQuery, [email])
+
+        // bcrypt check if passwords match
+        const {storedHash, storedId} = passwordAndIdRows[0]
+        const isPasswordValid = await bcrypt.compare(password, storedHash)
+
+        if (!isPasswordValid) {
+            connection.end()
+            return res.status(401).json({message: 'Invalid email or password'})
+        }
+
+        connection.end()
+
+        // creates a session for the user
+        req.session.regenerate((error) => {
+            if (error) {
+                return res.status(500).json({message: 'An error occurred during login. Please try again later.'})
+            }
+
+            req.session.userId = storedId
+            req.session.save((saveError) => {
+                if (saveError) {
+                    return res.status(500).json({message: 'An error occurred during login. Please try again later.'})
+                }
+
+                console.log('Session saved: ', req.session)
+                res.status(200).json({message: 'All set! Ready to go.'})
+            })
+        })
+
+    } catch (error) {
+        console.error('Error during login:', error)
+        return res.status(500).json({message: 'An error occurred during login. Please try again later.'})
+    }
 }
 
 export async function logout(req, res) {

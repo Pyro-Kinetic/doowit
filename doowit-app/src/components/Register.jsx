@@ -1,5 +1,5 @@
 import {useState} from "react";
-import axios from "axios"
+import {postUserData} from "../utils/postUserData";
 
 export default function Register({handleBackdropClick, setMessage, setError, error}) {
     const [formData, setFormData] = useState({
@@ -17,16 +17,6 @@ export default function Register({handleBackdropClick, setMessage, setError, err
         }));
     }
 
-    async function postUserData(url) {
-        try {
-            const response = await axios.post(url, formData);
-            setMessage(response.data.message);
-            handleBackdropClick();
-        } catch (error) {
-            setError(error.response?.data?.message || error.message)
-        }
-    }
-
     function handleSubmit(e) {
         e.preventDefault();
         const baseUrl = 'http://localhost:8000/api/authorization/register'
@@ -37,7 +27,7 @@ export default function Register({handleBackdropClick, setMessage, setError, err
         }
 
         setError("");
-        postUserData(baseUrl)
+        postUserData(baseUrl, formData, handleBackdropClick, setMessage, setError)
     }
 
     return (
