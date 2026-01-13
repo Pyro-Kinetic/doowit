@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs'
+import {promisify} from 'util'
 import validator from 'validator'
 import {getDBConnection} from "../db/connect.js";
 
@@ -59,7 +60,7 @@ export async function register(req, res) {
 }
 
 export async function login(req, res) {
-    const { email, password } = req.body
+    const {email, password} = req.body
 
     if (!email || !password) {
         return res.status(400).json({message: 'Email and password are required'})
@@ -73,7 +74,7 @@ export async function login(req, res) {
         const [idRows] = await connection.execute(getUserQuery, [email])
 
         // return if the user does not exist
-        if (idRows.length <= 0){
+        if (idRows.length <= 0) {
             connection.end()
             return res.status(401).json({message: 'Invalid email or password'})
         }
@@ -93,22 +94,15 @@ export async function login(req, res) {
 
         connection.end()
 
-        // creates a session for the user
-        req.session.regenerate((error) => {
-            if (error) {
-                return res.status(500).json({message: 'An error occurred during login. Please try again later.'})
-            }
+        // create a new session for the user
+        const regenerate = promisify(req.session.regenerate).bind(req.session)
+        const save = promisify(req.session.save).bind(req.session)
 
-            req.session.userId = storedId
-            req.session.save((saveError) => {
-                if (saveError) {
-                    return res.status(500).json({message: 'An error occurred during login. Please try again later.'})
-                }
+        await regenerate()
+        req.session.userId = storedId
+        await save()
 
-                console.log('Session saved: ', req.session)
-                res.status(200).json({message: 'All set! Ready to go.'})
-            })
-        })
+        res.status(200).json({message: 'All set! Ready to go.'})
 
     } catch (error) {
         console.error('Error during login:', error)
@@ -117,5 +111,13 @@ export async function login(req, res) {
 }
 
 export async function logout(req, res) {
-    res.status(200).json({message: 'Goodbye!'})
+    const destroy = promisify(req.session.destroy).bind(req.session)
+
+    try {
+        await destroy()
+        res.clearCookie('connect.sid')
+        res.status(200).json({message: 'Goodbye!'})
+    } catch (error) {
+        res.status(500).json({message: 'An error occurred during logout. Please try again.'})
+    }
 }
