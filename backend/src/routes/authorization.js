@@ -10,4 +10,4 @@ authorizationRouter.post('/register', register)
 authorizationRouter.post('/login', login)
 
 // logout
-authorizationRouter.get('/logout', logout)
+authorizationRouter.post('/logout', logout)

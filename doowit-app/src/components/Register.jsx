@@ -1,7 +1,7 @@
 import {useState} from "react";
-import {postUserData} from "../utils/postUserData";
+import {postUserData} from "../utils/axiosRequests";
 
-export default function Register({handleBackdropClick, setMessage, setError, error}) {
+export default function Register({handleBackdropClick, setIsLoggedIn, setMessage, setError, error}) {
     const [formData, setFormData] = useState({
         email: "", password: "", confirmPassword: ""
     });
@@ -27,7 +27,8 @@ export default function Register({handleBackdropClick, setMessage, setError, err
         }
 
         setError("");
-        postUserData(baseUrl, formData, handleBackdropClick, setMessage, setError)
+        setMessage('')
+        postUserData(baseUrl, formData, handleBackdropClick, setIsLoggedIn, setMessage, setError)
     }
 
     return (

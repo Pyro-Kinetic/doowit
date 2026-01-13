@@ -20,6 +20,7 @@ function App() {
     const [showContactPage, setShowContactPage] = useState(false)
     const [toDoList, setToDoList] = useState(data)
     const [showCompletedOnly, setShowCompletedOnly] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     function addToDo(obj) {
         obj["completed"] = false
@@ -96,7 +97,7 @@ function App() {
                     )}
                 </div>
             </div>
-            {showLogin && <LoginPage/>}
+            {showLogin && <LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>}
             {showHomePage && (
                 <HomePage toDoList={displayedList} addToDo={addToDo} removeToDo={removeToDo} editToDo={editToDo}
                           completeToDo={completeToDo} showCompletedOnly={showCompletedOnly}/>)}

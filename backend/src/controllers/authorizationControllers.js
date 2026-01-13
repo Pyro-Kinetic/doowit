@@ -52,9 +52,10 @@ export async function register(req, res) {
         await connection.execute(insertUserQuery, [email, hashedPassword])
 
         connection.end()
-        res.status(201).json({message: 'Thanks for signing up!'})
+        res.status(201).json({message: 'Thanks for signing up!', isLoggedIn: false})
 
     } catch (error) {
+        console.error('Error during registration: ', error)
         return res.status(500).json({message: 'An error occurred during registration. Please try again later.'})
     }
 }
@@ -102,10 +103,10 @@ export async function login(req, res) {
         req.session.userId = storedId
         await save()
 
-        res.status(200).json({message: 'All set! Ready to go.'})
+        res.status(200).json({message: 'All set! Ready to go.', isLoggedIn: true})
 
     } catch (error) {
-        console.error('Error during login:', error)
+        console.error('Error during login: ', error)
         return res.status(500).json({message: 'An error occurred during login. Please try again later.'})
     }
 }
@@ -116,8 +117,9 @@ export async function logout(req, res) {
     try {
         await destroy()
         res.clearCookie('connect.sid')
-        res.status(200).json({message: 'Goodbye!'})
+        res.status(200).json({message: 'Goodbye!', isLoggedIn: false})
     } catch (error) {
+        console.error('Error during logout: ', error)
         res.status(500).json({message: 'An error occurred during logout. Please try again.'})
     }
 }

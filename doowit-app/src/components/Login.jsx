@@ -1,7 +1,7 @@
 import {useState} from "react";
-import {postUserData} from "../utils/postUserData";
+import {postUserData} from "../utils/axiosRequests";
 
-export default function Login({handleBackdropClick, setMessage, setError, error}) {
+export default function Login({handleBackdropClick, setIsLoggedIn, setMessage, setError, error}) {
     const [formData, setFormData] = useState({
         email: "",
         password: ""
@@ -24,7 +24,8 @@ export default function Login({handleBackdropClick, setMessage, setError, error}
         const baseUrl = 'http://localhost:8000/api/authorization/login'
 
         setError('')
-        postUserData(baseUrl, formData, handleBackdropClick, setMessage, setError)
+        setMessage('')
+        postUserData(baseUrl, formData, handleBackdropClick, setIsLoggedIn, setMessage, setError)
     }
 
     return (
