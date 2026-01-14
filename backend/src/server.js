@@ -1,13 +1,16 @@
 import cors from 'cors'
+import dotenv from 'dotenv'
 import express from 'express'
 import session from 'express-session'
 import {authorizationRouter} from "./routes/authorization.js";
 import {toDoItemRouter} from "./routes/toDoItem.js";
 
+dotenv.config();
+
 // express | port | secret
 const app = express()
 const PORT = 8000
-const secret = 'apple99'
+const secret = process.env.SECRET
 
 // cors | session | express.json() -> "req.body" access
 app.use(cors({

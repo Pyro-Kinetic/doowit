@@ -31,16 +31,15 @@ export async function register(req, res) {
 
     try {
         // database connector
-        const connection = await getDBConnection()
+        const db = await getDBConnection()
 
         // query checks if this user exists
         // might add to utils function
         const getUserQuery = 'SELECT id FROM users WHERE email = ?'
-        const [rows] = await connection.execute(getUserQuery, [email])
+        const [rows] = await db.execute(getUserQuery, [email])
 
         // deny registration if user exists
         if (rows.length > 0) {
-            connection.end()
             return res.status(400).json({message: 'User with this email already exists'})
         }
 
@@ -49,9 +48,8 @@ export async function register(req, res) {
 
         // query inserts new user
         const insertUserQuery = 'INSERT INTO users (email, password) VALUES (?, ?)'
-        await connection.execute(insertUserQuery, [email, hashedPassword])
+        await db.execute(insertUserQuery, [email, hashedPassword])
 
-        connection.end()
         res.status(201).json({message: 'Thanks for signing up!', isLoggedIn: false})
 
     } catch (error) {
@@ -68,32 +66,28 @@ export async function login(req, res) {
     }
 
     try {
-        const connection = await getDBConnection()
+        const db = await getDBConnection()
 
         // query checks if the user exists, might add to utils function...
         const getUserQuery = 'SELECT id FROM users WHERE email = ?'
-        const [idRows] = await connection.execute(getUserQuery, [email])
+        const [idRows] = await db.execute(getUserQuery, [email])
 
         // return if the user does not exist
         if (idRows.length <= 0) {
-            connection.end()
             return res.status(401).json({message: 'Invalid email or password'})
         }
 
         // query gets the user's hashed password
         const getPassAndIdQuery = 'SELECT password as storedHash, id as storedId FROM users WHERE email = ?'
-        const [passwordAndIdRows] = await connection.execute(getPassAndIdQuery, [email])
+        const [passwordAndIdRows] = await db.execute(getPassAndIdQuery, [email])
 
         // bcrypt check if passwords match
         const {storedHash, storedId} = passwordAndIdRows[0]
         const isPasswordValid = await bcrypt.compare(password, storedHash)
 
         if (!isPasswordValid) {
-            connection.end()
             return res.status(401).json({message: 'Invalid email or password'})
         }
-
-        connection.end()
 
         // create a new session for the user
         const regenerate = promisify(req.session.regenerate).bind(req.session)

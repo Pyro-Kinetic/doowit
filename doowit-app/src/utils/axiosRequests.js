@@ -17,6 +17,7 @@ export async function logoutUser(url, setIsLoggedIn, setMessage, setError) {
         setIsLoggedIn(response.data.isLoggedIn)
         setMessage(response.data.message);
     } catch (error) {
+        setIsLoggedIn(false)
         setError(error.response?.data?.message || error.message)
     }
 }
