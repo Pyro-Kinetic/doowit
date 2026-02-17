@@ -1,6 +1,21 @@
+import {getDBConnection} from "../db/connect.js";
+
 export async function getToDo(req, res) {
-    console.log(req.session.userId)
-    res.status(200).json({message: 'To do item successfully retrieved.'})
+    try {
+        const connection = await getDBConnection();
+
+        const userId = req.session.userId;
+        const query = 'SELECT id, completed, priority, title, description FROM todo WHERE user_id = ?';
+
+        const [rows] = await connection.execute(query, [userId]);
+        console.log(rows)
+        // console logging rows
+        // console logging rows
+
+        res.status(200).json(rows);
+    } catch (error) {
+        res.status(500).json({message: 'Failed to fetch to-dos.'});
+    }
 }
 
 export async function addToDo(req, res) {

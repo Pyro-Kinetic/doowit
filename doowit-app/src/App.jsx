@@ -2,7 +2,7 @@ import HomePage from "./components/HomePage";
 import ContactPage from "./components/ContactPage"
 import LoginPage from "./components/LoginPage";
 import {useState} from "react";
-import data from "./appData";
+import guestData from "./appData";
 import {v4 as uuidv4} from "uuid";
 
 /* import all the icons in Free Solid, Free Regular, and Brands styles */
@@ -18,7 +18,7 @@ function App() {
     const [showLogin, setShowLogin] = useState(true)
     const [showHomePage, setShowHomePage] = useState(false)
     const [showContactPage, setShowContactPage] = useState(false)
-    const [toDoList, setToDoList] = useState(data)
+    const [toDoList, setToDoList] = useState(guestData)
     const [showCompletedOnly, setShowCompletedOnly] = useState(false)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
 

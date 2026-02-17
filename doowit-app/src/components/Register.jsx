@@ -29,6 +29,7 @@ export default function Register({handleBackdropClick, setIsLoggedIn, setMessage
         setError("");
         setMessage('')
         postUserData(baseUrl, formData, handleBackdropClick, setIsLoggedIn, setMessage, setError)
+            .then(data => {return data})
     }
 
     return (

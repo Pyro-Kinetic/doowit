@@ -1,8 +1,9 @@
 import ToDo from "./ToDo";
-import {getData} from "../utils/axiosRequests"
-import {useState, useEffect} from "react";
+import guestData from "../appData"
 import AddToDoForm from "./AddToDoForm";
+import {useState, useEffect} from "react";
 import EditToDoForm from "./EditToDoForm";
+import {getData} from "../utils/axiosRequests"
 import danceGraphic from "../assets/dancing.jpg"
 
 /* import all the icons in Free Solid, Free Regular, and Brands styles */
@@ -23,9 +24,10 @@ export default function HomePage({toDoList, setToDoList, addToDo, removeToDo, ed
         if (isLoggedIn) {
             const url = 'http://localhost:8000/api/item/get'
             getData(url).then(data => {
-                console.log(data)
-                // setToDoList(data)
+                setToDoList(data)
             })
+        } else {
+            setToDoList(guestData)
         }
     }, [isLoggedIn, setToDoList])
 

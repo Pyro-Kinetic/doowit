@@ -26,6 +26,7 @@ export default function Login({handleBackdropClick, setIsLoggedIn, setMessage, s
         setError('')
         setMessage('')
         postUserData(baseUrl, formData, handleBackdropClick, setIsLoggedIn, setMessage, setError)
+            .then(data => {return data})
     }
 
     return (
