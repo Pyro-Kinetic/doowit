@@ -1,3 +1,8 @@
+export async function getToDo(req, res) {
+    console.log(req.session.userId)
+    res.status(200).json({message: 'To do item successfully retrieved.'})
+}
+
 export async function addToDo(req, res) {
     res.status(201).json({message: 'To do item successfully added.'})
 }

@@ -1,8 +1,9 @@
-import {useState} from "react";
-import danceGraphic from "../assets/dancing.jpg"
+import ToDo from "./ToDo";
+import {getData} from "../utils/axiosRequests"
+import {useState, useEffect} from "react";
 import AddToDoForm from "./AddToDoForm";
 import EditToDoForm from "./EditToDoForm";
-import ToDo from "./ToDo";
+import danceGraphic from "../assets/dancing.jpg"
 
 /* import all the icons in Free Solid, Free Regular, and Brands styles */
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -13,11 +14,31 @@ import {fab} from '@fortawesome/free-brands-svg-icons'
 
 library.add(fas, far, fab)
 
-export default function HomePage({toDoList, addToDo, removeToDo, editToDo, completeToDo, showCompletedOnly}) {
+export default function HomePage({toDoList, setToDoList, addToDo, removeToDo, editToDo, completeToDo, showCompletedOnly, isLoggedIn}) {
     const [editingId, setEditingId] = useState(null)
     const [entry, setEntry] = useState(null)
     const [show, setShow] = useState(false)
 
+    useEffect(() => {
+        if (isLoggedIn) {
+            const url = 'http://localhost:8000/api/item/get'
+            getData(url).then(data => {
+                console.log(data)
+                // setToDoList(data)
+            })
+        }
+    }, [isLoggedIn, setToDoList])
+
+    const toDoElements = toDoList.map(entry => {
+        return (<ToDo
+            key={entry.id}
+            entry={entry}
+            removeToDo={removeToDo}
+            setEditingId={setEditingId}
+            setEntry={setEntry}
+            completeToDo={completeToDo}
+        />)
+    })
 
     function addToDoAndClose(obj) {
         addToDo(obj)
@@ -38,18 +59,7 @@ export default function HomePage({toDoList, addToDo, removeToDo, editToDo, compl
         if (show) handleShow()
     }
 
-    const toDoElements = toDoList.map(entry => {
-        return (<ToDo
-            key={entry.id}
-            entry={entry}
-            removeToDo={removeToDo}
-            setEditingId={setEditingId}
-            setEntry={setEntry}
-            completeToDo={completeToDo}
-        />)
-    })
-
-    const renderContent = () => {
+    function renderContent() {
         const paragraph = showCompletedOnly ?
             "No completed to-dos yet. Mark to-dos as done to see them here!" :
             "No to-dos yet. Click the + to add your first task!"

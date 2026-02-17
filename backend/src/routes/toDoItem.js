@@ -1,7 +1,10 @@
 import express from 'express'
-import {addToDo, editToDo, deleteToDo, markToDoComplete} from "../controllers/toDoItemControllers.js";
+import {addToDo, editToDo, deleteToDo, markToDoComplete, getToDo} from "../controllers/toDoItemControllers.js";
 
 export const toDoItemRouter = express.Router()
+
+// getToDo
+toDoItemRouter.get('/get', getToDo)
 
 // addToDo
 toDoItemRouter.get('/add', addToDo)

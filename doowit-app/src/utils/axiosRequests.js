@@ -2,12 +2,21 @@ import axios from "axios";
 
 export async function postUserData(url, data, handleBackdropClick, setIsLoggedIn, setMessage, setError) {
     try {
-        const response = await axios.post(url, data);
+        const response = await axios.post(url, data, {withCredentials: true});
         setIsLoggedIn(response.data.isLoggedIn)
         setMessage(response.data.message);
         handleBackdropClick();
     } catch (error) {
         setError(error.response?.data?.message || error.message)
+    }
+}
+
+export async function getData(url) {
+    try {
+        const response = await axios.get(url, {withCredentials: true});
+        return response.data;
+    } catch (error) {
+        throw error.response?.data?.message || error.message;
     }
 }
 
