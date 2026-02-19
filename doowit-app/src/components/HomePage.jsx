@@ -1,7 +1,7 @@
 import ToDo from "./ToDo";
 import guestData from "../appData"
 import AddToDoForm from "./AddToDoForm";
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import EditToDoForm from "./EditToDoForm";
 import {getData} from "../utils/axiosRequests"
 import danceGraphic from "../assets/dancing.jpg"
@@ -15,10 +15,20 @@ import {fab} from '@fortawesome/free-brands-svg-icons'
 
 library.add(fas, far, fab)
 
-export default function HomePage({toDoList, setToDoList, addToDo, removeToDo, editToDo, completeToDo, showCompletedOnly, isLoggedIn}) {
+export default function HomePage({
+                                     toDoList,
+                                     setToDoList,
+                                     addToDo,
+                                     removeToDo,
+                                     editToDo,
+                                     completeToDo,
+                                     showCompletedOnly,
+                                     isLoggedIn
+                                 }) {
     const [editingId, setEditingId] = useState(null)
     const [entry, setEntry] = useState(null)
     const [show, setShow] = useState(false)
+    const [count, setCount] = useState(0)
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -29,7 +39,7 @@ export default function HomePage({toDoList, setToDoList, addToDo, removeToDo, ed
         } else {
             setToDoList(guestData)
         }
-    }, [isLoggedIn, setToDoList])
+    }, [isLoggedIn, setToDoList, count])
 
     const toDoElements = toDoList.map(entry => {
         return (<ToDo
@@ -42,7 +52,7 @@ export default function HomePage({toDoList, setToDoList, addToDo, removeToDo, ed
         />)
     })
 
-    function addToDoAndClose(obj) {
+    function addToDoItem(obj) {
         addToDo(obj)
         setShow(false)
     }
@@ -89,10 +99,16 @@ export default function HomePage({toDoList, setToDoList, addToDo, removeToDo, ed
             </div>
 
             {show && (
-                <AddToDoForm addToDo={addToDoAndClose} handleShow={handleShow}
+                <AddToDoForm setCount={setCount}
+                             addToDo={addToDoItem}
+                             isLoggedIn={isLoggedIn}
+                             handleShow={handleShow}
                              handleBackdropClick={handleBackdropClick}/>)}
             {editingId && (
-                <EditToDoForm editToDo={editToDoAndClose} editingId={editingId} entry={entry} handleShow={handleShow}
+                <EditToDoForm entry={entry}
+                              editingId={editingId}
+                              handleShow={handleShow}
+                              editToDo={editToDoAndClose}
                               handleBackdropClick={handleBackdropClick}/>)}
         </div>
     )

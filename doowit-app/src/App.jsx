@@ -99,8 +99,9 @@ function App() {
             </div>
             {showLogin && <LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>}
             {showHomePage && (
-                <HomePage toDoList={displayedList} setToDoList={setToDoList} addToDo={addToDo} removeToDo={removeToDo} editToDo={editToDo}
-                          completeToDo={completeToDo} showCompletedOnly={showCompletedOnly} isLoggedIn={isLoggedIn} />)}
+                <HomePage toDoList={displayedList} setToDoList={setToDoList} addToDo={addToDo} removeToDo={removeToDo}
+                          editToDo={editToDo}
+                          completeToDo={completeToDo} showCompletedOnly={showCompletedOnly} isLoggedIn={isLoggedIn}/>)}
             {showContactPage && (<ContactPage/>)}
         </div>
     );

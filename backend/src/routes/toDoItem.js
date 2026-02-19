@@ -1,5 +1,5 @@
 import express from 'express'
-import {addToDo, editToDo, deleteToDo, markToDoComplete, getToDo} from "../controllers/toDoItemControllers.js";
+import {addToDo, deleteToDo, editToDo, getToDo, markToDoComplete} from "../controllers/toDoItemControllers.js";
 
 export const toDoItemRouter = express.Router()
 
@@ -7,7 +7,7 @@ export const toDoItemRouter = express.Router()
 toDoItemRouter.get('/get', getToDo)
 
 // addToDo
-toDoItemRouter.get('/add', addToDo)
+toDoItemRouter.post('/add', addToDo)
 
 // editToDo
 toDoItemRouter.get('/edit', editToDo)

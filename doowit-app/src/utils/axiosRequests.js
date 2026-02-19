@@ -20,6 +20,15 @@ export async function getData(url) {
     }
 }
 
+export async function postData(url, data) {
+    try {
+        const response = await axios.post(url, data, {withCredentials: true})
+        return response.data
+    } catch (error) {
+        console.error(error.response?.data?.message || error.message)
+    }
+}
+
 export async function logoutUser(url, setIsLoggedIn, setMessage, setError) {
     try {
         const response = await axios.post(url, {}, {withCredentials: true});

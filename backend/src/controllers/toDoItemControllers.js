@@ -5,12 +5,9 @@ export async function getToDo(req, res) {
         const connection = await getDBConnection();
 
         const userId = req.session.userId;
-        const query = 'SELECT id, completed, priority, title, description FROM todo WHERE user_id = ?';
+        const query = 'SELECT id, completed, priority, title, description FROM todo WHERE user_id = ? ORDER BY created_at DESC';
 
         const [rows] = await connection.execute(query, [userId]);
-        console.log(rows)
-        // console logging rows
-        // console logging rows
 
         res.status(200).json(rows);
     } catch (error) {
@@ -19,7 +16,25 @@ export async function getToDo(req, res) {
 }
 
 export async function addToDo(req, res) {
-    res.status(201).json({message: 'To do item successfully added.'})
+    const {id, priority, title, description} = req.body;
+
+    if (!id || !priority || !title || !description) {
+        return res.status(400).json({message: 'Missing required fields.'})
+    }
+
+    try {
+        const connection = await getDBConnection();
+
+        const query = 'INSERT INTO todo (user_id, id, completed, priority, title, description) VALUES (?, ?, ?, ?, ?, ?)';
+        const values = [req.session.userId, id, false, priority, title, description];
+
+        await connection.execute(query, values);
+
+        res.status(201).json({message: 'To do item successfully added.'})
+
+    } catch (error) {
+        return res.status(500).json({message: 'Failed to add to-do item.'})
+    }
 }
 
 export async function editToDo(req, res) {

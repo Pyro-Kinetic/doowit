@@ -2,18 +2,19 @@ import {useState} from "react";
 import {postUserData} from "../utils/axiosRequests";
 
 export default function Login({handleBackdropClick, setIsLoggedIn, setMessage, setError, error}) {
-    const [formData, setFormData] = useState({
+
+    const [loginInfo, setLoginInfo] = useState({
         email: "",
         password: ""
     });
 
-    function handleClick(e) {
+    function closeModal(e) {
         if (e.target === e.currentTarget) handleBackdropClick();
     }
 
     function handleChange(e) {
         const {name, value} = e.target;
-        setFormData(prev => ({
+        setLoginInfo(prev => ({
             ...prev,
             [name]: value
         }));
@@ -25,12 +26,14 @@ export default function Login({handleBackdropClick, setIsLoggedIn, setMessage, s
 
         setError('')
         setMessage('')
-        postUserData(baseUrl, formData, handleBackdropClick, setIsLoggedIn, setMessage, setError)
-            .then(data => {return data})
+        postUserData(baseUrl, loginInfo, handleBackdropClick, setIsLoggedIn, setMessage, setError)
+            .then(data => {
+                return data
+            })
     }
 
     return (
-        <div className="modal-backdrop-custom" onClick={handleClick}>
+        <div className="modal-backdrop-custom" onClick={closeModal}>
             <section className="modal-custom" role="dialog" aria-modal="true" aria-labelledby="login-title">
                 <header className="modal-header">
                     <h1 id="login-title" className="hachi-maru-pop-regular rich-black">Login</h1>
@@ -42,7 +45,7 @@ export default function Login({handleBackdropClick, setIsLoggedIn, setMessage, s
                         id="email"
                         type="email"
                         name="email"
-                        value={formData.email}
+                        value={loginInfo.email}
                         onChange={handleChange}
                         required
                     />
@@ -52,7 +55,7 @@ export default function Login({handleBackdropClick, setIsLoggedIn, setMessage, s
                         id="password"
                         type="password"
                         name="password"
-                        value={formData.password}
+                        value={loginInfo.password}
                         onChange={handleChange}
                         required
                     />
