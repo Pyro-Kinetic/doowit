@@ -60,7 +60,23 @@ export async function editToDo(req, res) {
 }
 
 export async function deleteToDo(req, res) {
-    res.status(201).json({message: 'To do item successfully deleted.'})
+    const id = req.body.id
+
+    if (!id) return res.status(400).json({message: 'Missing required fields.'})
+
+    try {
+        const connection = await getDBConnection();
+
+        const query = 'DELETE FROM todo WHERE id = ? AND user_id = ?';
+        const values = [id, req.session.userId];
+
+        await connection.execute(query, values);
+
+        res.status(201).json({message: 'To do item successfully deleted.'})
+
+    } catch (error) {
+        return res.status(500).json({message: 'Failed to delete to-do item.'})
+    }
 }
 
 export async function markToDoComplete(req, res) {

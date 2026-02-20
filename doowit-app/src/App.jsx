@@ -1,16 +1,18 @@
-import HomePage from "./components/HomePage";
-import ContactPage from "./components/ContactPage"
-import LoginPage from "./components/LoginPage";
 import {useState} from "react";
-import guestData from "./appData";
 import {v4 as uuidv4} from "uuid";
+import guestData from "./appData";
+import HomePage from "./components/HomePage";
+import LoginPage from "./components/LoginPage";
+import {postData} from "./utils/axiosRequests";
+import {setCountState} from "./utils/reactSpecific";
+import ContactPage from "./components/ContactPage"
 
 /* import all the icons in Free Solid, Free Regular, and Brands styles */
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {library} from '@fortawesome/fontawesome-svg-core'
 import {fas} from '@fortawesome/free-solid-svg-icons'
-import {far} from '@fortawesome/free-regular-svg-icons'
 import {fab} from '@fortawesome/free-brands-svg-icons'
+import {far} from '@fortawesome/free-regular-svg-icons'
+import {library} from '@fortawesome/fontawesome-svg-core'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 library.add(fas, far, fab)
 
@@ -21,6 +23,7 @@ function App() {
     const [toDoList, setToDoList] = useState(guestData)
     const [showCompletedOnly, setShowCompletedOnly] = useState(false)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [count, setCount] = useState(0)
 
     function addToDo(obj) {
         obj["completed"] = false
@@ -28,6 +31,15 @@ function App() {
     }
 
     function removeToDo(id) {
+        const url = 'http://localhost:8000/api/item/delete'
+
+        if (isLoggedIn) {
+            postData(url, {id: id}).then(res => {
+                setCountState(setCount)
+                return res
+            })
+        }
+
         setToDoList(prev => prev.filter(entry => entry.id !== id))
     }
 
@@ -99,9 +111,16 @@ function App() {
             </div>
             {showLogin && <LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>}
             {showHomePage && (
-                <HomePage toDoList={displayedList} setToDoList={setToDoList} addToDo={addToDo} removeToDo={removeToDo}
+                <HomePage count={count}
+                          addToDo={addToDo}
+                          setCount={setCount}
                           editToDo={editToDo}
-                          completeToDo={completeToDo} showCompletedOnly={showCompletedOnly} isLoggedIn={isLoggedIn}/>)}
+                          isLoggedIn={isLoggedIn}
+                          removeToDo={removeToDo}
+                          toDoList={displayedList}
+                          setToDoList={setToDoList}
+                          completeToDo={completeToDo}
+                          showCompletedOnly={showCompletedOnly}/>)}
             {showContactPage && (<ContactPage/>)}
         </div>
     );

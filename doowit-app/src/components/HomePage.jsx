@@ -16,6 +16,8 @@ import {fab} from '@fortawesome/free-brands-svg-icons'
 library.add(fas, far, fab)
 
 export default function HomePage({
+                                     count,
+                                     setCount,
                                      toDoList,
                                      setToDoList,
                                      addToDo,
@@ -28,7 +30,6 @@ export default function HomePage({
     const [editingId, setEditingId] = useState(null)
     const [entry, setEntry] = useState(null)
     const [show, setShow] = useState(false)
-    const [count, setCount] = useState(0)
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -57,7 +58,7 @@ export default function HomePage({
         setShow(false)
     }
 
-    function editToDoAndClose(id, obj) {
+    function editToDoItem(id, obj) {
         editToDo(id, obj)
         setEditingId(null)
     }
@@ -110,7 +111,7 @@ export default function HomePage({
                               editingId={editingId}
                               isLoggedIn={isLoggedIn}
                               handleShow={handleShow}
-                              editToDo={editToDoAndClose}
+                              editToDo={editToDoItem}
                               handleBackdropClick={handleBackdropClick}/>)}
         </div>
     )

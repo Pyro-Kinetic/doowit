@@ -13,7 +13,7 @@ toDoItemRouter.post('/add', addToDo)
 toDoItemRouter.post('/edit', editToDo)
 
 // deleteToDo
-toDoItemRouter.get('/delete', deleteToDo)
+toDoItemRouter.post('/delete', deleteToDo)
 
 // markToDoComplete
 toDoItemRouter.get('/mark', markToDoComplete)
