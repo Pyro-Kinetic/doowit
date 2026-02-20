@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {v4 as uuidv4} from "uuid";
+import {setCountState} from "../utils/reactSpecific";
 import {postData} from "../utils/axiosRequests";
 
 export default function AddToDoForm({setCount, addToDo, isLoggedIn, handleBackdropClick}) {
@@ -23,7 +24,7 @@ export default function AddToDoForm({setCount, addToDo, isLoggedIn, handleBackdr
         }))
     }
 
-    function handleSubmit(formData) {
+    function submitTodoItem(formData) {
         // *NOTE TO SELF* Updating the 'todoItem' state with the onChange event is redundant because 'allData' already have the data needed.
         // Meaning you can use 'allData' directly without updating the state.
 
@@ -32,10 +33,7 @@ export default function AddToDoForm({setCount, addToDo, isLoggedIn, handleBackdr
 
         if (isLoggedIn) {
             postData(url, todoItem).then(response => {
-                setCount(prev => {
-                    if (prev >= 1) return prev - 1
-                    else return prev + 1
-                })
+                setCountState(setCount)
                 return response
             })
 
@@ -43,8 +41,8 @@ export default function AddToDoForm({setCount, addToDo, isLoggedIn, handleBackdr
             return
         }
 
-        handleBackdropClick()
         addToDo(allData)
+        handleBackdropClick()
     }
 
     return (
@@ -55,7 +53,7 @@ export default function AddToDoForm({setCount, addToDo, isLoggedIn, handleBackdr
                     <h1 id="add-todo-title" className="hachi-maru-pop-regular rich-black">To Do+</h1>
                 </header>
 
-                <form className="modal-body" action={handleSubmit}>
+                <form className="modal-body" action={submitTodoItem}>
                     {/*form ID*/}
                     <input className={"d-none"}
                            type={"text"}

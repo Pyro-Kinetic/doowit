@@ -1,41 +1,95 @@
-export default function EditToDoForm({editToDo, editingId, entry, handleBackdropClick}) {
-    function submitEditedData(formData) {
+import {useState} from 'react'
+import {setCountState} from "../utils/reactSpecific";
+import {postData} from '../utils/axiosRequests'
+
+export default function EditToDoForm({entry, setCount, editToDo, editingId, isLoggedIn, handleBackdropClick}) {
+
+    const [editedItem, setEditedItem] = useState({
+        id: entry.id,
+        title: entry.title,
+        description: entry.description,
+        priority: "moon"
+    })
+
+    function closeModal(e) {
+        if (e.target === e.currentTarget) handleBackdropClick();
+    }
+
+    function handleChange(e) {
+        const {name, value} = e.target
+        setEditedItem(prev => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
+    function submitEditedItem(formData) {
+        const url = 'http://localhost:8000/api/item/edit'
         const allData = Object.fromEntries(formData)
+
+        if (isLoggedIn){
+            postData(url, editedItem).then(res => {
+                setCountState(setCount)
+                return res
+            })
+
+            handleBackdropClick()
+            return
+        }
+
         editToDo(editingId, allData)
+        handleBackdropClick()
     }
 
 
     return (
-        <div className="modal-backdrop-custom" onClick={(e) => {
-            if (e.target === e.currentTarget) handleBackdropClick();
-        }}>
+        <div className="modal-backdrop-custom" onClick={closeModal}>
             <section className="modal-custom" role="dialog" aria-modal="true" aria-labelledby="add-todo-title">
 
                 <header className="modal-header">
                     <h1 id="add-todo-title" className="hachi-maru-pop-regular rich-black">To Do+</h1>
                 </header>
 
-                <form className="modal-body" action={submitEditedData}>
+                <form className="modal-body" action={submitEditedItem}>
                     <label htmlFor={"title"} className="roboto">Title</label>
-                    <input id={"title"} type={"text"} name={"title"} maxLength={25} defaultValue={entry.title} required/>
+                    <input id={"title"}
+                           type={"text"}
+                           name={"title"}
+                           maxLength={25}
+                           defaultValue={entry.title}
+                           onChange={handleChange}
+                           required/>
 
                     <label htmlFor={"description"} className="roboto">Description</label>
                     <textarea id={"description"}
                               name={"description"}
                               defaultValue={entry.description}
+                              onChange={handleChange}
                               maxLength={150}></textarea>
 
-                    <fieldset className="modal-fieldset">
+                    <fieldset className="modal-fieldset"
+                              onChange={handleChange}
+                    >
                         <legend>Priority</legend>
 
                         <label htmlFor={"small"}>Small</label>
-                        <input id={"small"} type={"radio"} name={"priority"} defaultChecked={true} value={"moon"}/>
+                        <input id={"small"}
+                               type={"radio"}
+                               name={"priority"}
+                               defaultChecked={true}
+                               value={"moon"}/>
 
                         <label htmlFor={"medium"}>Medium</label>
-                        <input id={"medium"} type={"radio"} name={"priority"} value={"planet"}/>
+                        <input id={"medium"}
+                               type={"radio"}
+                               name={"priority"}
+                               value={"planet"}/>
 
                         <label htmlFor={"large"}>Large</label>
-                        <input id={"large"} type={"radio"} name={"priority"} value={"sun"}/>
+                        <input id={"large"}
+                               type={"radio"}
+                               name={"priority"}
+                               value={"sun"}/>
                     </fieldset>
 
                     <footer className="modal-footer">

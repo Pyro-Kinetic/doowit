@@ -5,7 +5,7 @@ export async function getToDo(req, res) {
         const connection = await getDBConnection();
 
         const userId = req.session.userId;
-        const query = 'SELECT id, completed, priority, title, description FROM todo WHERE user_id = ? ORDER BY created_at DESC';
+        const query = 'SELECT id, completed, priority, title, description FROM todo WHERE user_id = ? ORDER BY updated_at DESC';
 
         const [rows] = await connection.execute(query, [userId]);
 
@@ -38,7 +38,25 @@ export async function addToDo(req, res) {
 }
 
 export async function editToDo(req, res) {
-    res.status(201).json({message: 'To do item successfully edited.'})
+    const {id, title, priority, description} = req.body;
+
+    if (!id || !title || !priority || !description) {
+        return res.status(400).json({message: 'Missing required fields.'})
+    }
+
+    try {
+        const connection = await getDBConnection();
+
+        const query = 'UPDATE todo SET title = ?, priority = ?, description = ?, updated_at = NOW() WHERE id = ? AND user_id = ?';
+        const values = [title, priority, description, id, req.session.userId];
+
+        await connection.execute(query, values);
+
+        res.status(201).json({message: 'To do item successfully edited.'})
+
+    } catch (error) {
+        return res.status(500).json({message: 'Failed to edit to-do item.'})
+    }
 }
 
 export async function deleteToDo(req, res) {

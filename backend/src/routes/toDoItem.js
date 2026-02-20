@@ -10,7 +10,7 @@ toDoItemRouter.get('/get', getToDo)
 toDoItemRouter.post('/add', addToDo)
 
 // editToDo
-toDoItemRouter.get('/edit', editToDo)
+toDoItemRouter.post('/edit', editToDo)
 
 // deleteToDo
 toDoItemRouter.get('/delete', deleteToDo)

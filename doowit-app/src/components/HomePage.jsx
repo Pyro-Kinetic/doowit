@@ -106,7 +106,9 @@ export default function HomePage({
                              handleBackdropClick={handleBackdropClick}/>)}
             {editingId && (
                 <EditToDoForm entry={entry}
+                              setCount={setCount}
                               editingId={editingId}
+                              isLoggedIn={isLoggedIn}
                               handleShow={handleShow}
                               editToDo={editToDoAndClose}
                               handleBackdropClick={handleBackdropClick}/>)}
