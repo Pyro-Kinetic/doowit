@@ -94,18 +94,35 @@ function App() {
         return showCompletedOnly ? "btn-success" : "btn-primary"
     }
 
+    function renderUserMode() {
+        if (isLoggedIn) return "To Do+"
+        return "Guest Mode"
+    }
+
+    function renderHomeTitle() {
+        if (!showHomePage) return "Doowit +";
+
+        return (
+            <>
+                Doowit +{" "}
+                <FontAwesomeIcon className={"btn btn-info"} icon="fa-solid fa-house"/>
+            </>
+        );
+    }
+
     const displayedList = showCompletedOnly ? toDoList.filter(entry => entry.completed) : toDoList
 
     return (
         <div className={"container"}>
             <div className="d-flex justify-content-between align-items-center mt-3">
-                <h1 onClick={showLoginPage} className={"hachi-maru-pop-bold rich-black pointer"}>Doowit!</h1>
+                <h1 onClick={showLoginPage}
+                    className={"hachi-maru-pop-bold rich-black pointer"}>{renderHomeTitle()}</h1>
                 <div className="d-flex align-items-center gap-2">
                     {showLogin && (
                         <button onClick={() => {
                             setShowLogin(false)
                             setShowHomePage(true)
-                        }} className="btn roboto planet-background planet-hover text-light">Guest Mode</button>
+                        }} className="btn roboto planet-background planet-hover text-light">{renderUserMode()}</button>
                     )}
                     {showHomePage && (
                         <>

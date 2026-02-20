@@ -32,7 +32,7 @@ export default function LoginPage({isLoggedIn, setIsLoggedIn}) {
 
         setError('')
         setMessage('')
-        logoutUser(url, setIsLoggedIn, setMessage, setError)
+        logoutUser(url, setIsLoggedIn, setMessage, setError).then(res => res)
     }
 
     return (
@@ -45,22 +45,25 @@ export default function LoginPage({isLoggedIn, setIsLoggedIn}) {
                 <h2 className="hachi-maru-pop-regular rich-black mb-4">Welcome to Doowit!</h2>
                 <div className="d-flex gap-3">
                     {!isLoggedIn && <button onClick={toggleLoginModal}
-                                           className="btn planet-background planet-hover text-light roboto">Login</button>}
+                                            className="btn planet-background planet-hover text-light roboto">Login</button>}
                     {isLoggedIn && <button onClick={handleLogout}
-                        className="btn planet-background planet-hover text-light roboto">Logout</button>}
-                    <button onClick={toggleRegisterModal} className="btn sun-background sun-hover text-dark roboto">Sign
+                                           className="btn planet-background planet-hover text-light roboto">Logout</button>}
+                    {!isLoggedIn && <button onClick={toggleRegisterModal}
+                                            className="btn sun-background sun-hover text-dark roboto">Sign
                         Up
-                    </button>
+                    </button>}
                 </div>
                 {message && <p className="text-success roboto mt-3 text-center">{message}</p>}
                 {error && <p className="text-danger roboto-light mt-3 text-center">{error}</p>}
             </div>
 
             {showRegisterModal &&
-                <Register handleBackdropClick={handleBackdropClick} setIsLoggedIn={setIsLoggedIn} setMessage={setMessage} setError={setError}
+                <Register handleBackdropClick={handleBackdropClick} setIsLoggedIn={setIsLoggedIn}
+                          setMessage={setMessage} setError={setError}
                           error={error}/>}
             {showLoginModal &&
-                <Login handleBackdropClick={handleBackdropClick} setIsLoggedIn={setIsLoggedIn} setMessage={setMessage} setError={setError}
+                <Login handleBackdropClick={handleBackdropClick} setIsLoggedIn={setIsLoggedIn} setMessage={setMessage}
+                       setError={setError}
                        error={error}/>}
         </div>
     );

@@ -5,7 +5,7 @@ export async function getToDo(req, res) {
         const connection = await getDBConnection();
 
         const userId = req.session.userId;
-        const query = 'SELECT id, completed, priority, title, description FROM todo WHERE user_id = ? ORDER BY updated_at DESC';
+        const query = 'SELECT id, completed, priority, title, description FROM todo WHERE user_id = ? ORDER BY completed ASC, updated_at DESC';
 
         const [rows] = await connection.execute(query, [userId]);
 
