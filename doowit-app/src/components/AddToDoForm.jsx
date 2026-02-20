@@ -24,7 +24,7 @@ export default function AddToDoForm({setCount, addToDo, isLoggedIn, handleBackdr
         }))
     }
 
-    function submitTodoItem(formData) {
+    function handleAddToDoSubmission(formData) {
         // *NOTE TO SELF* Updating the 'todoItem' state with the onChange event is redundant because 'allData' already have the data needed.
         // Meaning you can use 'allData' directly without updating the state.
 
@@ -53,12 +53,13 @@ export default function AddToDoForm({setCount, addToDo, isLoggedIn, handleBackdr
                     <h1 id="add-todo-title" className="hachi-maru-pop-regular rich-black">To Do+</h1>
                 </header>
 
-                <form className="modal-body" action={submitTodoItem}>
+                <form className="modal-body" action={handleAddToDoSubmission}>
                     {/*form ID*/}
                     <input className={"d-none"}
                            type={"text"}
                            name={"id"}
-                           defaultValue={uuidv4()}/>
+                           defaultValue={uuidv4()}
+                    />
 
                     <label htmlFor={"title"} className="roboto">Title</label>
                     <input id={"title"}
@@ -67,7 +68,8 @@ export default function AddToDoForm({setCount, addToDo, isLoggedIn, handleBackdr
                            maxLength={25}
                            placeholder={"Add a new task..."}
                            onChange={handleChange}
-                           required/>
+                           required
+                    />
 
                     <label htmlFor={"description"} className="roboto">Description</label>
                     <textarea id={"description"}
@@ -75,6 +77,7 @@ export default function AddToDoForm({setCount, addToDo, isLoggedIn, handleBackdr
                               placeholder={"Enter task description (e.g., Email Sarah the revised contract terms by Friday)"}
                               maxLength={150}
                               onChange={handleChange}
+                              required
                     ></textarea>
 
                     <fieldset className="modal-fieldset"
@@ -87,19 +90,22 @@ export default function AddToDoForm({setCount, addToDo, isLoggedIn, handleBackdr
                                type={"radio"}
                                name={"priority"}
                                defaultChecked={true}
-                               value={"moon"}/>
+                               value={"moon"}
+                        />
 
                         <label htmlFor={"medium"}>Medium</label>
                         <input id={"medium"}
                                type={"radio"}
                                name={"priority"}
-                               value={"planet"}/>
+                               value={"planet"}
+                        />
 
                         <label htmlFor={"large"}>Large</label>
                         <input id={"large"}
                                type={"radio"}
                                name={"priority"}
-                               value={"sun"}/>
+                               value={"sun"}
+                        />
                     </fieldset>
 
                     <footer className="modal-footer">

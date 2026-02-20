@@ -16,5 +16,5 @@ toDoItemRouter.post('/edit', editToDo)
 toDoItemRouter.post('/delete', deleteToDo)
 
 // markToDoComplete
-toDoItemRouter.get('/mark', markToDoComplete)
+toDoItemRouter.post('/mark', markToDoComplete)
 

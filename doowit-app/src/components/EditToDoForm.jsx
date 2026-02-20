@@ -8,7 +8,8 @@ export default function EditToDoForm({entry, setCount, editToDo, editingId, isLo
         id: entry.id,
         title: entry.title,
         description: entry.description,
-        priority: "moon"
+        priority: "moon",
+        completed: 0
     })
 
     function closeModal(e) {
@@ -23,11 +24,11 @@ export default function EditToDoForm({entry, setCount, editToDo, editingId, isLo
         }))
     }
 
-    function submitEditedItem(formData) {
+    function handleEditToDoSubmission(formData) {
         const url = 'http://localhost:8000/api/item/edit'
         const allData = Object.fromEntries(formData)
 
-        if (isLoggedIn){
+        if (isLoggedIn) {
             postData(url, editedItem).then(res => {
                 setCountState(setCount)
                 return res
@@ -41,7 +42,6 @@ export default function EditToDoForm({entry, setCount, editToDo, editingId, isLo
         handleBackdropClick()
     }
 
-
     return (
         <div className="modal-backdrop-custom" onClick={closeModal}>
             <section className="modal-custom" role="dialog" aria-modal="true" aria-labelledby="add-todo-title">
@@ -50,7 +50,7 @@ export default function EditToDoForm({entry, setCount, editToDo, editingId, isLo
                     <h1 id="add-todo-title" className="hachi-maru-pop-regular rich-black">To Do+</h1>
                 </header>
 
-                <form className="modal-body" action={submitEditedItem}>
+                <form className="modal-body" action={handleEditToDoSubmission}>
                     <label htmlFor={"title"} className="roboto">Title</label>
                     <input id={"title"}
                            type={"text"}
@@ -58,14 +58,17 @@ export default function EditToDoForm({entry, setCount, editToDo, editingId, isLo
                            maxLength={25}
                            defaultValue={entry.title}
                            onChange={handleChange}
-                           required/>
+                           required
+                    />
 
                     <label htmlFor={"description"} className="roboto">Description</label>
                     <textarea id={"description"}
                               name={"description"}
+                              maxLength={150}
                               defaultValue={entry.description}
                               onChange={handleChange}
-                              maxLength={150}></textarea>
+                              required
+                    ></textarea>
 
                     <fieldset className="modal-fieldset"
                               onChange={handleChange}
@@ -77,19 +80,22 @@ export default function EditToDoForm({entry, setCount, editToDo, editingId, isLo
                                type={"radio"}
                                name={"priority"}
                                defaultChecked={true}
-                               value={"moon"}/>
+                               value={"moon"}
+                        />
 
                         <label htmlFor={"medium"}>Medium</label>
                         <input id={"medium"}
                                type={"radio"}
                                name={"priority"}
-                               value={"planet"}/>
+                               value={"planet"}
+                        />
 
                         <label htmlFor={"large"}>Large</label>
                         <input id={"large"}
                                type={"radio"}
                                name={"priority"}
-                               value={"sun"}/>
+                               value={"sun"}
+                        />
                     </fieldset>
 
                     <footer className="modal-footer">

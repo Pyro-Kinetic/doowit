@@ -38,17 +38,17 @@ export async function addToDo(req, res) {
 }
 
 export async function editToDo(req, res) {
-    const {id, title, priority, description} = req.body;
+    const {id, title, priority, description, completed} = req.body;
 
-    if (!id || !title || !priority || !description) {
+    if (!id || !title || !priority || !description || completed === null) {
         return res.status(400).json({message: 'Missing required fields.'})
     }
 
     try {
         const connection = await getDBConnection();
 
-        const query = 'UPDATE todo SET title = ?, priority = ?, description = ?, updated_at = NOW() WHERE id = ? AND user_id = ?';
-        const values = [title, priority, description, id, req.session.userId];
+        const query = 'UPDATE todo SET title = ?, priority = ?, description = ?, completed = ?, updated_at = NOW() WHERE id = ? AND user_id = ?';
+        const values = [title, priority, description, completed, id, req.session.userId];
 
         await connection.execute(query, values);
 
@@ -80,6 +80,22 @@ export async function deleteToDo(req, res) {
 }
 
 export async function markToDoComplete(req, res) {
-    res.status(201).json({message: 'To do item successfully marked completed.'})
+    const {id, priority, completed} = req.body
+
+    if (!id || !priority || !completed) return res.status(400).json({message: 'Missing required fields.'})
+
+    try {
+        const connection = await getDBConnection();
+
+        const query = 'UPDATE todo SET completed = ?, priority = ?, updated_at = NOW() WHERE id = ? AND user_id = ?';
+        const values = [completed, priority, id, req.session.userId];
+
+        await connection.execute(query, values);
+
+        res.status(201).json({message: 'To do item successfully marked completed.'})
+
+    } catch (error) {
+        return res.status(500).json({message: 'Failed to mark to-do item complete.'})
+    }
 }
 

@@ -38,6 +38,7 @@ function App() {
                 setCountState(setCount)
                 return res
             })
+            return
         }
 
         setToDoList(prev => prev.filter(entry => entry.id !== id))
@@ -53,6 +54,21 @@ function App() {
     }
 
     function completeToDo(id) {
+        const url = 'http://localhost:8000/api/item/mark'
+        const data = {
+            id: id,
+            priority: "star",
+            completed: 1,
+        }
+
+        if (isLoggedIn) {
+            postData(url, data).then(res => {
+                setCountState(setCount)
+                return res
+            })
+            return
+        }
+
         setToDoList(prev => {
             return prev.map(entry => entry.id === id ? {...entry, completed: true, priority: "star"} : entry)
         })
