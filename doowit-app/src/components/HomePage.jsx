@@ -83,7 +83,7 @@ export default function HomePage({
     return (
         <div className={"home-layout"}>
             <div className={"left-pane"}>
-                <img src={danceGraphic} className={"app-image img-fluid"} alt="Illustration of three people dancing"/>
+                <img src={`${danceGraphic}`} className={"app-image img-fluid"} alt="Illustration of three people dancing"/>
                 <div className={"add-container position-sticky bottom-0 py-2"}>
                     <FontAwesomeIcon onClick={handleShow}
                                      className={"add-to-do add-hover d-block mx-auto"}

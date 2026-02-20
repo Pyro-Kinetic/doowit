@@ -58,7 +58,7 @@ export default function ToDo({entry, removeToDo, setEditingId, setEntry, complet
     return (
         <div className={`to-do-items ${toDoItemColorPicker()} bg-gradient bg-opacity-50 rounded-1 p-2 text-center`}>
             <div className={"d-flex align-items-center justify-content-between"}>
-                <img src={imageURL()} onClick={markToDoComplete} className={"pointer"} alt={"priority icon"}/>
+                <img src={`${imageURL()}`} onClick={markToDoComplete} className={"pointer"} alt={"priority icon"}/>
                 <FontAwesomeIcon onClick={setIdAndEntryState} className={"planet"} icon="fa-solid fa-pencil"
                                  size={"lg"}/>
                 <FontAwesomeIcon onClick={handleRemoveToDo} className={"text-danger pointer"}

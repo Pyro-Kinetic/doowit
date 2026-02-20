@@ -38,7 +38,7 @@ export default function LoginPage({isLoggedIn, setIsLoggedIn}) {
     return (
         <div className="login-page home-layout container" style={{minHeight: "80vh"}}>
             <div className="left-pane d-flex align-items-center justify-content-center">
-                <img src={danceGraphic} className="app-image img-fluid" alt="Illustration of three people dancing"/>
+                <img src={`${danceGraphic}`} className="app-image img-fluid" alt="Illustration of three people dancing"/>
             </div>
 
             <div className="right-pane d-flex flex-column align-items-center justify-content-center">
