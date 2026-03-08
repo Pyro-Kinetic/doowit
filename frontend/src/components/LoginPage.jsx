@@ -4,7 +4,7 @@ import Register from "./Register";
 import {logoutUser} from "../utils/axiosRequests";
 import danceGraphic from "../assets/dancing.jpg"
 
-export default function LoginPage({isLoggedIn, setIsLoggedIn}) {
+export default function LoginPage({isLoggedIn, setIsLoggedIn, setShowHomePage, setShowLogin}) {
     const [showRegisterModal, setShowRegisterModal] = useState(false);
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [message, setMessage] = useState("");
@@ -62,7 +62,11 @@ export default function LoginPage({isLoggedIn, setIsLoggedIn}) {
                           setMessage={setMessage} setError={setError}
                           error={error}/>}
             {showLoginModal &&
-                <Login handleBackdropClick={handleBackdropClick} setIsLoggedIn={setIsLoggedIn} setMessage={setMessage}
+                <Login handleBackdropClick={handleBackdropClick}
+                       setShowHomePage={setShowHomePage}
+                       setIsLoggedIn={setIsLoggedIn}
+                       setShowLogin={setShowLogin}
+                       setMessage={setMessage}
                        setError={setError}
                        error={error}/>}
         </div>

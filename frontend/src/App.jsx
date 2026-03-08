@@ -142,7 +142,8 @@ function App() {
                     )}
                 </div>
             </div>
-            {showLogin && <LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>}
+            {showLogin && <LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setShowLogin={setShowLogin}
+                                     setShowHomePage={setShowHomePage}/>}
             {showHomePage && (
                 <HomePage count={count}
                           addToDo={addToDo}

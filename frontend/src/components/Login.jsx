@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {postUserData} from "../utils/axiosRequests";
 
-export default function Login({handleBackdropClick, setIsLoggedIn, setMessage, setError, error}) {
+export default function Login({handleBackdropClick, setShowHomePage, setIsLoggedIn, setShowLogin, setMessage, setError, error}) {
 
     const [loginInfo, setLoginInfo] = useState({
         email: "",
@@ -26,10 +26,14 @@ export default function Login({handleBackdropClick, setIsLoggedIn, setMessage, s
 
         setError('')
         setMessage('')
+
         postUserData(baseUrl, loginInfo, handleBackdropClick, setIsLoggedIn, setMessage, setError)
             .then(data => {
                 return data
             })
+
+        setShowLogin(false)
+        setShowHomePage(true)
     }
 
     return (
