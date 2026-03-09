@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {API_URLS} from "../config/apiurls";
 import {postUserData} from "../utils/axiosRequests";
 
 export default function Register({handleBackdropClick, setIsLoggedIn, setMessage, setError, error}) {
@@ -19,7 +20,7 @@ export default function Register({handleBackdropClick, setIsLoggedIn, setMessage
 
     function handleSubmit(e) {
         e.preventDefault();
-        const baseUrl = 'http://localhost:8000/api/authorization/register'
+        const url = API_URLS.registerUser
 
         if (formData.password !== formData.confirmPassword) {
             setError("Passwords do not match");
@@ -28,54 +29,55 @@ export default function Register({handleBackdropClick, setIsLoggedIn, setMessage
 
         setError("");
         setMessage('')
-        postUserData(baseUrl, formData, handleBackdropClick, setIsLoggedIn, setMessage, setError)
-            .then(data => {return data})
+        postUserData(url, formData, handleBackdropClick, setIsLoggedIn, setMessage, setError)
+            .then(data => {
+                return data
+            })
     }
 
-    return (
-        <div className="modal-backdrop-custom" onClick={handleClick}>
-            <section className="modal-custom" role="dialog" aria-modal="true" aria-labelledby="register-title">
-                <header className="modal-header">
-                    <h1 id="register-title" className="hachi-maru-pop-regular rich-black">Sign Up</h1>
-                </header>
+    return (<div className="modal-backdrop-custom" onClick={handleClick}>
+        <section className="modal-custom" role="dialog" aria-modal="true" aria-labelledby="register-title">
+            <header className="modal-header">
+                <h1 id="register-title" className="hachi-maru-pop-regular rich-black">Sign Up</h1>
+            </header>
 
-                <form className="modal-body" onSubmit={handleSubmit}>
-                    <label htmlFor="email" className="roboto">Email</label>
-                    <input
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
+            <form className="modal-body" onSubmit={handleSubmit}>
+                <label htmlFor="email" className="roboto">Email</label>
+                <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                />
 
-                    <label htmlFor="password" className="roboto">Password</label>
-                    <input
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
+                <label htmlFor="password" className="roboto">Password</label>
+                <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                />
 
-                    <label htmlFor="confirmPassword" className="roboto">Confirm Password</label>
-                    <input
-                        id="confirmPassword"
-                        type="password"
-                        name="confirmPassword"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        required
-                    />
+                <label htmlFor="confirmPassword" className="roboto">Confirm Password</label>
+                <input
+                    id="confirmPassword"
+                    type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    required
+                />
 
-                    {error && <p className="text-danger roboto-light">{error}</p>}
+                {error && <p className="text-danger roboto-light">{error}</p>}
 
-                    <footer className="modal-footer">
-                        <button type="submit" className="btn-primary">Register</button>
-                    </footer>
-                </form>
-            </section>
-        </div>);
+                <footer className="modal-footer">
+                    <button type="submit" className="btn-primary">Register</button>
+                </footer>
+            </form>
+        </section>
+    </div>);
 }

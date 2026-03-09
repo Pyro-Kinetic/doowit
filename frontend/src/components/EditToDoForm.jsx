@@ -1,15 +1,12 @@
 import {useState} from 'react'
-import {setCountState} from "../utils/reactSpecific";
 import {postData} from '../utils/axiosRequests'
+import {API_URLS} from '../config/apiurls'
+import {setCountState} from "../utils/reactSpecific";
 
 export default function EditToDoForm({entry, setCount, editToDo, editingId, isLoggedIn, handleBackdropClick}) {
 
     const [editedItem, setEditedItem] = useState({
-        id: entry.id,
-        title: entry.title,
-        description: entry.description,
-        priority: "moon",
-        completed: 0
+        id: entry.id, title: entry.title, description: entry.description, priority: "moon", completed: 0
     })
 
     function closeModal(e) {
@@ -19,13 +16,12 @@ export default function EditToDoForm({entry, setCount, editToDo, editingId, isLo
     function handleChange(e) {
         const {name, value} = e.target
         setEditedItem(prev => ({
-            ...prev,
-            [name]: value
+            ...prev, [name]: value
         }))
     }
 
     function handleEditToDoSubmission(formData) {
-        const url = 'http://localhost:8000/api/item/edit'
+        const url = API_URLS.editItem
         const allData = Object.fromEntries(formData)
 
         if (isLoggedIn) {
@@ -42,8 +38,7 @@ export default function EditToDoForm({entry, setCount, editToDo, editingId, isLo
         handleBackdropClick()
     }
 
-    return (
-        <div className="modal-backdrop-custom" onClick={closeModal}>
+    return (<div className="modal-backdrop-custom" onClick={closeModal}>
             <section className="modal-custom" role="dialog" aria-modal="true" aria-labelledby="add-todo-title">
 
                 <header className="modal-header">
@@ -104,6 +99,5 @@ export default function EditToDoForm({entry, setCount, editToDo, editingId, isLo
                 </form>
 
             </section>
-        </div>
-    )
+        </div>)
 }

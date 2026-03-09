@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import EditToDoForm from "./EditToDoForm";
 import {getData} from "../utils/axiosRequests"
 import danceGraphic from "../assets/dancing.jpg"
+import {API_URLS} from "../config/apiurls"
 
 /* import all the icons in Free Solid, Free Regular, and Brands styles */
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -33,7 +34,7 @@ export default function HomePage({
 
     useEffect(() => {
         if (isLoggedIn) {
-            const url = 'http://localhost:8000/api/item/get'
+            const url = API_URLS.getItem
             getData(url).then(data => {
                 setToDoList(data)
             })
@@ -73,17 +74,15 @@ export default function HomePage({
     }
 
     function renderContent() {
-        const paragraph = showCompletedOnly ?
-            "No completed to-dos yet. Mark to-dos as done to see them here!" :
-            "No to-dos yet. Click the + to add your first task!"
+        const paragraph = showCompletedOnly ? "No completed to-dos yet. Mark to-dos as done to see them here!" : "No to-dos yet. Click the + to add your first task!"
         return toDoList.length === 0 ?
             <p className={"roboto-light text-center text-muted my-4"}>{paragraph}</p> : toDoElements
     }
 
-    return (
-        <div className={"home-layout"}>
+    return (<div className={"home-layout"}>
             <div className={"left-pane"}>
-                <img src={`${danceGraphic}`} className={"app-image img-fluid"} alt="Illustration of three people dancing"/>
+                <img src={`${danceGraphic}`} className={"app-image img-fluid"}
+                     alt="Illustration of three people dancing"/>
                 <div className={"add-container position-sticky bottom-0 py-2"}>
                     <FontAwesomeIcon onClick={handleShow}
                                      className={"add-to-do add-hover d-block mx-auto"}
@@ -99,20 +98,17 @@ export default function HomePage({
                 </main>
             </div>
 
-            {show && (
-                <AddToDoForm setCount={setCount}
-                             addToDo={addToDoItem}
-                             isLoggedIn={isLoggedIn}
-                             handleShow={handleShow}
-                             handleBackdropClick={handleBackdropClick}/>)}
-            {editingId && (
-                <EditToDoForm entry={entry}
-                              setCount={setCount}
-                              editingId={editingId}
-                              isLoggedIn={isLoggedIn}
-                              handleShow={handleShow}
-                              editToDo={editToDoItem}
-                              handleBackdropClick={handleBackdropClick}/>)}
-        </div>
-    )
+            {show && (<AddToDoForm setCount={setCount}
+                                   addToDo={addToDoItem}
+                                   isLoggedIn={isLoggedIn}
+                                   handleShow={handleShow}
+                                   handleBackdropClick={handleBackdropClick}/>)}
+            {editingId && (<EditToDoForm entry={entry}
+                                         setCount={setCount}
+                                         editingId={editingId}
+                                         isLoggedIn={isLoggedIn}
+                                         handleShow={handleShow}
+                                         editToDo={editToDoItem}
+                                         handleBackdropClick={handleBackdropClick}/>)}
+        </div>)
 }

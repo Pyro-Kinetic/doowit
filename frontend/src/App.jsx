@@ -1,11 +1,12 @@
-import {useState} from "react";
 import {v4 as uuidv4} from "uuid";
 import guestData from "./appData";
+import {useState, useEffect} from "react";
+import {API_URLS} from "./config/apiurls";
 import HomePage from "./components/HomePage";
 import LoginPage from "./components/LoginPage";
 import {postData} from "./utils/axiosRequests";
-import {setCountState} from "./utils/reactSpecific";
 import ContactPage from "./components/ContactPage"
+import {setCountState} from "./utils/reactSpecific";
 
 /* import all the icons in Free Solid, Free Regular, and Brands styles */
 import {fas} from '@fortawesome/free-solid-svg-icons'
@@ -25,13 +26,20 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [count, setCount] = useState(0)
 
+    useEffect(() => {
+        if (isLoggedIn) {
+            setShowLogin(false);
+            setShowHomePage(true);
+        }
+    }, [isLoggedIn, setShowLogin, setShowHomePage]);
+
     function addToDo(obj) {
         obj["completed"] = false
         setToDoList(prev => [obj, ...prev])
     }
 
     function removeToDo(id) {
-        const url = 'http://localhost:8000/api/item/delete'
+        const url = API_URLS.deleteItem
 
         if (isLoggedIn) {
             postData(url, {id: id}).then(res => {
@@ -54,11 +62,9 @@ function App() {
     }
 
     function completeToDo(id) {
-        const url = 'http://localhost:8000/api/item/mark'
+        const url = API_URLS.markItemAsComplete
         const data = {
-            id: id,
-            priority: "star",
-            completed: 1,
+            id: id, priority: "star", completed: 1,
         }
 
         if (isLoggedIn) {
@@ -102,30 +108,25 @@ function App() {
     function renderHomeTitle() {
         if (!showHomePage) return "Doowit +";
 
-        return (
-            <>
+        return (<>
                 Doowit +{" "}
                 <FontAwesomeIcon className={"btn btn-info"} icon="fa-solid fa-house"/>
-            </>
-        );
+            </>);
     }
 
     const displayedList = showCompletedOnly ? toDoList.filter(entry => entry.completed) : toDoList
 
-    return (
-        <div className={"container"}>
+    return (<div className={"container"}>
             <div className="d-flex justify-content-between align-items-center mt-3">
                 <h1 onClick={showLoginPage}
                     className={"hachi-maru-pop-bold rich-black pointer"}>{renderHomeTitle()}</h1>
                 <div className="d-flex align-items-center gap-2">
-                    {showLogin && (
-                        <button onClick={() => {
+                    {showLogin && (<button onClick={() => {
                             setShowLogin(false)
                             setShowHomePage(true)
-                        }} className="btn roboto planet-background planet-hover text-light">{renderUserMode()}</button>
-                    )}
-                    {showHomePage && (
-                        <>
+                        }}
+                                           className="btn roboto planet-background planet-hover text-light">{renderUserMode()}</button>)}
+                    {showHomePage && (<>
                             <FontAwesomeIcon onClick={toggleShowCompleted}
                                              className={`btn text-light ${isChecked()} pointer mx-auto`}
                                              icon="fa-solid fa-circle-check"
@@ -133,31 +134,25 @@ function App() {
                             <button onClick={togglePages}
                                     className="btn roboto sun-background sun-hover">Contact
                             </button>
-                        </>
-                    )}
-                    {showContactPage && (
-                        <button onClick={togglePages}
-                                className="btn text-light roboto planet-background planet-hover">Home
-                        </button>
-                    )}
+                        </>)}
+                    {showContactPage && (<button onClick={togglePages}
+                                                 className="btn text-light roboto planet-background planet-hover">Home
+                        </button>)}
                 </div>
             </div>
-            {showLogin && <LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setShowLogin={setShowLogin}
-                                     setShowHomePage={setShowHomePage}/>}
-            {showHomePage && (
-                <HomePage count={count}
-                          addToDo={addToDo}
-                          setCount={setCount}
-                          editToDo={editToDo}
-                          isLoggedIn={isLoggedIn}
-                          removeToDo={removeToDo}
-                          toDoList={displayedList}
-                          setToDoList={setToDoList}
-                          completeToDo={completeToDo}
-                          showCompletedOnly={showCompletedOnly}/>)}
+            {showLogin && <LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>}
+            {showHomePage && (<HomePage count={count}
+                                        addToDo={addToDo}
+                                        setCount={setCount}
+                                        editToDo={editToDo}
+                                        isLoggedIn={isLoggedIn}
+                                        removeToDo={removeToDo}
+                                        toDoList={displayedList}
+                                        setToDoList={setToDoList}
+                                        completeToDo={completeToDo}
+                                        showCompletedOnly={showCompletedOnly}/>)}
             {showContactPage && (<ContactPage/>)}
-        </div>
-    );
+        </div>);
 }
 
 export default App;

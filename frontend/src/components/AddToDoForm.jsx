@@ -1,15 +1,13 @@
 import {useState} from "react";
 import {v4 as uuidv4} from "uuid";
-import {setCountState} from "../utils/reactSpecific";
 import {postData} from "../utils/axiosRequests";
+import {API_URLS} from "../config/apiurls";
+import {setCountState} from "../utils/reactSpecific";
 
 export default function AddToDoForm({setCount, addToDo, isLoggedIn, handleBackdropClick}) {
 
     const [todoItem, setTodoItem] = useState({
-        id: uuidv4(),
-        title: "",
-        description: "",
-        priority: "moon"
+        id: uuidv4(), title: "", description: "", priority: "moon"
     })
 
     function closeModal(e) {
@@ -19,8 +17,7 @@ export default function AddToDoForm({setCount, addToDo, isLoggedIn, handleBackdr
     function handleChange(e) {
         const {name, value} = e.target
         setTodoItem(prev => ({
-            ...prev,
-            [name]: value
+            ...prev, [name]: value
         }))
     }
 
@@ -29,7 +26,7 @@ export default function AddToDoForm({setCount, addToDo, isLoggedIn, handleBackdr
         // Meaning you can use 'allData' directly without updating the state.
 
         const allData = Object.fromEntries(formData)
-        const url = 'http://localhost:8000/api/item/add'
+        const url = API_URLS.addItem
 
         if (isLoggedIn) {
             postData(url, todoItem).then(response => {
@@ -45,8 +42,7 @@ export default function AddToDoForm({setCount, addToDo, isLoggedIn, handleBackdr
         handleBackdropClick()
     }
 
-    return (
-        <div className="modal-backdrop-custom" onClick={closeModal}>
+    return (<div className="modal-backdrop-custom" onClick={closeModal}>
             <section className="modal-custom" role="dialog" aria-modal="true" aria-labelledby="add-todo-title">
 
                 <header className="modal-header">
@@ -114,6 +110,5 @@ export default function AddToDoForm({setCount, addToDo, isLoggedIn, handleBackdr
                 </form>
 
             </section>
-        </div>
-    )
+        </div>)
 }

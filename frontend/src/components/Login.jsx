@@ -1,11 +1,17 @@
 import {useState} from "react";
+import {API_URLS} from "../config/apiurls";
 import {postUserData} from "../utils/axiosRequests";
 
-export default function Login({handleBackdropClick, setShowHomePage, setIsLoggedIn, setShowLogin, setMessage, setError, error}) {
+export default function Login({
+                                  handleBackdropClick,
+                                  setIsLoggedIn,
+                                  setMessage,
+                                  setError,
+                                  error
+                              }) {
 
     const [loginInfo, setLoginInfo] = useState({
-        email: "",
-        password: ""
+        email: "", password: ""
     });
 
     function closeModal(e) {
@@ -15,29 +21,25 @@ export default function Login({handleBackdropClick, setShowHomePage, setIsLogged
     function handleChange(e) {
         const {name, value} = e.target;
         setLoginInfo(prev => ({
-            ...prev,
-            [name]: value
+            ...prev, [name]: value
         }));
     }
 
     function handleSubmit(e) {
         e.preventDefault();
-        const baseUrl = 'http://localhost:8000/api/authorization/login'
+        const url = API_URLS.loginUser
 
         setError('')
         setMessage('')
 
-        postUserData(baseUrl, loginInfo, handleBackdropClick, setIsLoggedIn, setMessage, setError)
+        postUserData(url, loginInfo, handleBackdropClick, setIsLoggedIn, setMessage, setError)
             .then(data => {
                 return data
             })
 
-        setShowLogin(false)
-        setShowHomePage(true)
     }
 
-    return (
-        <div className="modal-backdrop-custom" onClick={closeModal}>
+    return (<div className="modal-backdrop-custom" onClick={closeModal}>
             <section className="modal-custom" role="dialog" aria-modal="true" aria-labelledby="login-title">
                 <header className="modal-header">
                     <h1 id="login-title" className="hachi-maru-pop-regular rich-black">Login</h1>
@@ -71,6 +73,5 @@ export default function Login({handleBackdropClick, setShowHomePage, setIsLogged
                     </footer>
                 </form>
             </section>
-        </div>
-    );
+        </div>);
 }
