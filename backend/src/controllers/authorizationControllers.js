@@ -110,7 +110,7 @@ export async function logout(req, res) {
 
     try {
         await destroy()
-        res.clearCookie('connect.sid')
+        res.clearCookie('sid')
         res.status(200).json({message: 'Goodbye!', isLoggedIn: false})
     } catch (error) {
         console.error('Error during logout: ', error)
