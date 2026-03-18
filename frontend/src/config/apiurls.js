@@ -8,4 +8,5 @@ export const API_URLS = {
     editItem: `${process.env.REACT_APP_API_BASE_URL}/api/item/edit`,
     deleteItem: `${process.env.REACT_APP_API_BASE_URL}/api/item/delete`,
     markItemAsComplete: `${process.env.REACT_APP_API_BASE_URL}/api/item/mark`,
+    getSession: `${process.env.REACT_APP_API_BASE_URL}/api/authorization/session`,
 }

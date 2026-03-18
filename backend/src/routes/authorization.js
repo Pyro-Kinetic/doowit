@@ -1,5 +1,6 @@
 import express from "express";
-import {register, login, logout} from "../controllers/authorizationControllers.js"
+import {requireSession} from "../middleware/requireSession.js";
+import {register, login, getSession ,logout} from "../controllers/authorizationControllers.js"
 
 export const authorizationRouter = express.Router()
 
@@ -8,6 +9,9 @@ authorizationRouter.post('/register', register)
 
 // login
 authorizationRouter.post('/login', login)
+
+// getSession
+authorizationRouter.get('/session', requireSession, getSession)
 
 // logout
 authorizationRouter.post('/logout', logout)

@@ -105,6 +105,16 @@ export async function login(req, res) {
     }
 }
 
+export async function getSession(req, res) {
+    try {
+        return res.status(200).json({isLoggedIn: !!req.session.userId})
+
+    } catch (error) {
+        console.error('Error during session retrieval: ', error)
+        return res.status(500).json({message: 'Unable to verify session information. Please try again.'})
+    }
+}
+
 export async function logout(req, res) {
     const destroy = promisify(req.session.destroy).bind(req.session)
 
