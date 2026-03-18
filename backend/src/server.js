@@ -1,9 +1,8 @@
 import cors from 'cors'
 import './config/loadEnv.js'
 import express from 'express'
-import {createClient} from "redis";
 import session from 'express-session'
-import {RedisStore} from "connect-redis";
+import {redisStore} from './config/loadRedis.js';
 import {toDoItemRouter} from "./routes/toDoItem.js";
 import {authorizationRouter} from "./routes/authorization.js";
 
@@ -24,29 +23,6 @@ if (!sessionSecret || sessionSecret.length < 64) {
 if (isProduction) {
     app.set('trust proxy', 1)
 }
-
-// redis setup
-const redisClient = createClient({
-    url: process.env.REDIS_URL
-})
-
-redisClient.on('error', (err) => {
-    console.error('Redis client error: ', err)
-})
-
-try {
-    await redisClient.connect()
-    console.log('Redis client connected')
-} catch (err) {
-    console.error('Failed to connect to Redis: ', err)
-    process.exit(1)
-}
-
-const redisStore = new RedisStore({
-    client: redisClient,
-    prefix: 'sess:',
-    ttl: 60 * 30
-})
 
 // cors | session | express.json() -> "req.body" access
 app.use(cors({
