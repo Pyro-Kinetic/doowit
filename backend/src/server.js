@@ -13,7 +13,7 @@ const sessionSecret = process.env.SESSION_SECRET
 
 const nodeEnv = process.env.NODE_ENV || 'development'
 const isProduction = nodeEnv === 'production'
-const clientOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:3000'
+const clientOrigin = process.env.CLIENT_ORIGIN
 
 if (!sessionSecret || sessionSecret.length < 64) {
     console.error('Missing or invalid SESSION_SECRET environment variable.')
