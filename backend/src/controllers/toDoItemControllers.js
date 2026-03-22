@@ -112,7 +112,7 @@ export async function deleteToDo(req, res) {
 export async function markToDoComplete(req, res) {
     const {id, priority, completed} = req.body
 
-    if (!id || !priority || !completed) return res.status(400).json({message: 'Missing required fields.'})
+    if (!id || !priority || completed === undefined || completed === null) return res.status(400).json({message: 'Missing required fields.'})
 
     try {
         // query

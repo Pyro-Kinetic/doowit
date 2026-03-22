@@ -4,7 +4,8 @@ import validator from 'validator'
 import {getDBConnection} from "../db/connect.js";
 
 export async function register(req, res) {
-    const {email, password, confirmPassword} = req.body
+    const {password, confirmPassword} = req.body
+    const email = req.body.email?.trim()
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/
 
     if (!email) {
@@ -71,22 +72,16 @@ export async function login(req, res) {
     try {
         const db = await getDBConnection()
 
-        // query checks if the user exists, might add to utils function...
-        // const getUserQuery = 'SELECT id FROM users WHERE email = ?'
-        // const [idRows] = await db.execute(getUserQuery, [email])
-        const getUserQuery = 'SELECT id FROM users WHERE email = $1'
-        const idRowsResult = await db.query(getUserQuery, [email])
-
-        // return if the user does not exist
-        if (idRowsResult.rows.length <= 0) {
-            return res.status(401).json({message: 'Invalid email or password'})
-        }
-
         // query gets the user's hashed password
         // const getPassAndIdQuery = 'SELECT password as storedHash, id as storedId FROM users WHERE email = ?'
         // const [passwordAndIdRows] = await db.execute(getPassAndIdQuery, [email])
         const getPassAndIdQuery = 'SELECT password as "storedHash", id as "storedId" FROM users WHERE email = $1'
         const passwordAndIdRowsResult = await db.query(getPassAndIdQuery, [email])
+
+        // return if the user does not exist
+        if (passwordAndIdRowsResult.rows.length <= 0) {
+            return res.status(401).json({message: 'Invalid email or password'})
+        }
 
         // bcrypt check if passwords match
         const {storedHash, storedId} = passwordAndIdRowsResult.rows[0]
