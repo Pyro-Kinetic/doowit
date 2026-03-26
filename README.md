@@ -1,10 +1,11 @@
-# Doowit - A to do app
-A playful and intuitive to-do app that uses cosmic-themed priorities to help you organize and manage your tasks. Built with React and featuring a vibrant, responsive design.
-# Link - https://pyro-kinetic.github.io/doowit/
+# Doowit - A Full-Stack Cosmic To-Do App
+A playful and intuitive full-stack to-do app that uses cosmic-themed priorities to help you organize and manage your tasks. Built with React, Node.js, and PostgreSQL, featuring a vibrant, responsive design and secure user authentication.
+# Live Demo - https://pyro-kinetic.github.io/doowit/
 
-<img src="https://github.com/user-attachments/assets/71ed90eb-809d-4a2b-9d2a-fb89ec0b8a05" alt="Meme image representaion of the page" />
+<img src="https://github.com/user-attachments/assets/71ed90eb-809d-4a2b-9d2a-fb89ec0b8a05" alt="Meme image representation of the page" />
 
 ## ✨ Features
+- **User Authentication**: Secure sign-up and login system with session-based authentication.
 - **Cosmic Priority System**: Organize tasks with four visual priority levels:
     - 🌙 **Moon** - Low priority
     - 🪐 **Planet** - Medium priority
@@ -12,7 +13,7 @@ A playful and intuitive to-do app that uses cosmic-themed priorities to help you
     - ⭐ **Star** - Completed tasks
 
 - **Task Management**:
-    - Create, edit, and delete tasks
+    - Create, edit, and delete tasks (stored in a persistent database)
     - Mark tasks as complete with a single click
     - View full task details in an elegant modal
     - Filter between active and completed tasks
@@ -23,102 +24,146 @@ A playful and intuitive to-do app that uses cosmic-themed priorities to help you
     - Custom fonts (Hachi Maru Pop & Roboto) for a unique look
     - Font Awesome icons for crisp, scalable interface elements
 
-- **Accessibility Features**:
+- **Accessibility & Security**:
     - Proper ARIA labels and semantic HTML
     - Keyboard navigation support
-    - Screen reader compatibility
-    - Modal backdrop click-to-close functionality
+    - Rate limiting and secure session management
+    - Protected API endpoints
 
 - **Contact Form**: Built-in contact page with form submission via Formspree
 
 ## 🚀 Tech Stack
-- **React 19** - Modern React with latest features
+### Frontend
+- **React 19** - UI library
 - **Bootstrap 5** - Responsive CSS framework
-- **Font Awesome 7** - Scalable vector icons
-- **UUID** - Unique identifier generation
-- **React Scripts** - Development and build tooling
+- **Font Awesome 7** - Vector icons
+- **Axios** - API client
+
+### Backend
+- **Node.js & Express 5** - Server-side framework
+- **PostgreSQL** - Relational database for persistent storage
+- **Redis** - Session storage for high-performance authentication
+- **Bcryptjs** - Password hashing for security
 
 ## 📦 Installation
 ### Prerequisites
 - Node.js (v18+ recommended)
+- PostgreSQL & Redis installed and running
 - npm (comes with Node.js)
 
 ### Setup
+1. **Clone the repository**
 ``` bash
-# Clone the repository
-git clone https://github.com/your-username/doowit-app.git
-cd doowit-app
+git clone https://github.com/Pyro-Kinetic/doowit.git
+cd doowit
+```
 
-# Install dependencies
+2. **Backend Configuration**
+Navigate to the `backend` directory and install dependencies:
+``` bash
+cd backend
 npm install
-
-# Start the development server
+```
+Create a `.env` file in the `backend` directory with the following variables:
+```
+PORT=8000
+SESSION_SECRET=your_long_session_secret
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=your_db_user
+DB_PASSWORD=your_db_password
+DB_NAME=doowit
+REDIS_URL=redis://localhost:6379
+CLIENT_ORIGIN=http://localhost:3000
+```
+Start the backend server:
+``` bash
 npm start
 ```
-The app will open at [http://localhost:3000](http://localhost:3000) with hot reload enabled.
+
+3. **Frontend Configuration**
+Navigate to the `frontend` directory and install dependencies:
+``` bash
+cd ../frontend
+npm install
+```
+Start the frontend development server:
+``` bash
+npm start
+```
+
+The app will open at [http://localhost:3000](http://localhost:3000).
 
 ## 🎮 How to Use
-### Adding Tasks
-1. Click the **+** button to open the add task form
-2. Enter a title (max 25 characters) and description (max 150 characters)
-3. Select priority level: Small (Moon), Medium (Planet), or Large (Sun)
-4. Click **Add+** to save
+### Getting Started
+1. **Register/Login**: Create an account to start managing your tasks.
+2. **Adding Tasks**: Click the **+** button to open the add task form.
+3. **Task Details**: Enter a title (max 25 characters) and description (max 150 characters).
+4. **Select Priority**: Small (Moon), Medium (Planet), or Large (Sun).
+5. **Save**: Click **Add+** to save.
 
 ### Managing Tasks
-- **Complete**: Click the priority icon (left side) to mark as complete
-- **Edit**: Click the pencil icon to modify the task
-- **Delete**: Click the X icon to remove the task
-- **View Details**: Click anywhere on the task body to open the detail modal
+- **Complete**: Click the priority icon (left side) to mark as complete.
+- **Edit**: Click the pencil icon to modify the task.
+- **Delete**: Click the X icon to remove the task.
+- **View Details**: Click anywhere on the task body to open the detail modal.
 
 ### Navigation
-- **Filter Toggle**: Click the checkmark icon to toggle between all tasks and completed tasks only
-- **Contact**: Access the contact form via the navigation button
+- **Filter Toggle**: Click the checkmark icon to toggle between all tasks and completed tasks only.
+- **Contact**: Access the contact form via the navigation button.
 
 ## 📱 Responsive Design
 The app features a fully responsive design that works seamlessly across all devices:
-- **Mobile**: Single column layout with optimized touch targets
-- **Tablet**: 2-3 column grid for efficient space usage
-- **Desktop**: Sidebar layout with image and tasks side-by-side
+- **Mobile**: Single column layout with optimized touch targets.
+- **Tablet**: 2-3 column grid for efficient space usage.
+- **Desktop**: Sidebar layout with image and tasks side-by-side.
 
 ## 🎨 Customization
-The app uses CSS custom properties for easy theming. Priority colors can be customized in : `src/index.css`
+The app uses CSS custom properties for easy theming. Priority colors can be customized in : `frontend/src/index.css`
 - Moon: (Turquoise) `rgb(9, 209, 207)`
 - Planet: (Blue) `rgb(1, 95, 182)`
 - Sun: (Orange) `rgb(243, 101, 29)`
 - Star: `rgb(0, 255, 0)` (Green)
 
 ## 🧪 Available Scripts
+### Frontend
 ``` bash
-# Development server
-npm start
-
-# Production build
-npm run build
-
-# Run tests
-npm test
-
-# Eject from Create React App (irreversible)
-npm run eject
+npm start # Development server
+npm run build # Production build
+npm test # Run tests
 ```
+
+### Backend
+``` bash
+npm start # Start production server
+```
+
 ## 📂 Project Structure
 ``` 
-doowit-app/
-├── public/
-├── src/
-│   ├── components/
-│   │   ├── HomePage.jsx
-│   │   ├── ContactPage.jsx
-│   │   ├── ToDo.jsx
-│   │   ├── AddToDoForm.jsx
-│   │   └── EditToDoForm.jsx
-│   ├── assets/
-│   ├── App.jsx
-│   ├── appData.js
-│   ├── index.css
-│   └── index.js
-└── package.json
+doowit/
+├── backend/
+│   ├── src/
+│   │   ├── config/       # Configuration (Env, Redis)
+│   │   ├── controllers/  # Route controllers (Auth, Tasks)
+│   │   ├── db/           # Database connection
+│   │   ├── middleware/   # Custom middleware (Auth, Rate Limit)
+│   │   ├── routes/       # API routes
+│   │   └── server.js     # Entry point
+│   └── package.json
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/       # Images and fonts
+│   │   ├── components/   # UI components
+│   │   ├── config/       # API configuration
+│   │   ├── utils/        # Helper functions
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── index.js
+│   └── package.json
+└── README.md
 ```
+
 ## 🤝 Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.
 1. Fork the project
@@ -129,12 +174,12 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 This project is open source and available under the [MIT License](LICENSE).
+
 ## 🎯 Future Enhancements
 - Task due dates and reminders
 - Categories and tags
 - Task search and filtering
 - Dark mode toggle
-- Data persistence with local storage
-- Task export/import functionality
+- Mobile app version (React Native)
 
-Built with ❤️ using React and cosmic inspiration ✨
+Built with ❤️ using React, Node.js, and cosmic inspiration ✨
