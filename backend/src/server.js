@@ -13,7 +13,7 @@ const sessionSecret = process.env.SESSION_SECRET
 
 const nodeEnv = process.env.NODE_ENV || 'development'
 const isProduction = nodeEnv === 'production'
-const clientOrigin = [process.env.CLIENT_ORIGIN, process.env.CLIENT_ORIGIN_2, 'https://pyro-kinetic.github.io'].filter(Boolean)
+const clientOrigin = [process.env.CLIENT_ORIGIN, process.env.CLIENT_ORIGIN_2].filter(Boolean)
 
 if (!sessionSecret || sessionSecret.length < 64) {
     console.error('Missing or invalid SESSION_SECRET environment variable.')
