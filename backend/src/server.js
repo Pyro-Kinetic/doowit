@@ -13,7 +13,9 @@ const sessionSecret = process.env.SESSION_SECRET
 
 const nodeEnv = process.env.NODE_ENV || 'development'
 const isProduction = nodeEnv === 'production'
+
 const clientOrigin = [process.env.CLIENT_ORIGIN, process.env.CLIENT_ORIGIN_2].filter(Boolean)
+const uniqueOrigins = [...new Set(clientOrigin)]
 
 if (!sessionSecret || sessionSecret.length < 64) {
     console.error('Missing or invalid SESSION_SECRET environment variable.')
@@ -25,9 +27,29 @@ if (isProduction) {
 }
 
 // cors | session | express.json() -> "req.body" access
+// app.use(cors({
+//     origin: clientOrigin,
+//     credentials: true,
+// }))
+
 app.use(cors({
-    origin: clientOrigin,
-    credentials: true
+    origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps or curl)
+        if (!origin) return callback(null, true);
+
+        // Remove the trailing slash from the incoming origin
+        const cleanOrigin = origin.replace(/\/$/, '');
+
+        // Compare the cleaned origin with the unique origins
+        if (uniqueOrigins.some(o => o.replace(/\/$/, '') === cleanOrigin)) {
+            callback(null, true);
+        } else {
+            console.warn(`CORS blocked for origin: ${origin}`);
+            callback(null, false);
+        }
+    },
+    credentials: true,
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }))
 
 app.use(express.json())
