@@ -28,7 +28,13 @@ const pool = new Pool({
     database: process.env.DB_NAME,
     max: 10,
     idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 10000
+    connectionTimeoutMillis: 10000,
+    ssl: process.env.NODE_ENV === 'production' ? {rejectUnauthorized: false} : false // required for render
+})
+
+pool.on('error', (err) => {
+    console.error('Unexpected error on idle client', err)
+    process.exit(1)
 })
 
 export function getDBConnection() {
