@@ -58,7 +58,7 @@ export async function register(req, res) {
 
     } catch (error) {
         console.error('Error during registration: ', error)
-        return res.status(500).json({message: 'An error occurred during registration. Please try again later.'})
+        return res.status(500).json({message: 'An error occurred during registration.', error: error.message})
     }
 }
 
@@ -103,7 +103,7 @@ export async function login(req, res) {
 
     } catch (error) {
         console.error('Error during login: ', error)
-        return res.status(500).json({message: 'An error occurred during login. Please try again later.'})
+        return res.status(500).json({message: 'An error occurred during login.', error: error.message})
     }
 }
 
@@ -113,7 +113,7 @@ export async function getSession(req, res) {
 
     } catch (error) {
         console.error('Error during session retrieval: ', error)
-        return res.status(500).json({message: 'Unable to verify session information. Please try again.'})
+        return res.status(500).json({message: 'Unable to verify session information.', error: error.message})
     }
 }
 
@@ -126,6 +126,6 @@ export async function logout(req, res) {
         res.status(200).json({message: 'Goodbye!', isLoggedIn: false})
     } catch (error) {
         console.error('Error during logout: ', error)
-        res.status(500).json({message: 'An error occurred during logout. Please try again.'})
+        res.status(500).json({message: 'An error occurred during logout.', error: error.message})
     }
 }
