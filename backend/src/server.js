@@ -14,8 +14,15 @@ const sessionSecret = process.env.SESSION_SECRET
 const nodeEnv = process.env.NODE_ENV || 'development'
 const isProduction = nodeEnv === 'production'
 
-const clientOrigin = [process.env.CLIENT_ORIGIN, process.env.CLIENT_ORIGIN_2].filter(Boolean)
+const clientOrigin = [
+    process.env.CLIENT_ORIGIN,
+    process.env.CLIENT_ORIGIN_2,
+    'https://doowit-static.onrender.com'
+].filter(Boolean)
 const uniqueOrigins = [...new Set(clientOrigin)]
+
+console.log('Environment loaded:', nodeEnv)
+console.log('Allowed Origins (initial):', uniqueOrigins)
 
 if (!sessionSecret || sessionSecret.length < 64) {
     console.error('Missing or invalid SESSION_SECRET environment variable.')
@@ -37,14 +44,23 @@ app.use(cors({
         // Allow requests with no origin (like mobile apps or curl)
         if (!origin) return callback(null, true);
 
-        // Remove the trailing slash from the incoming origin
-        const cleanOrigin = origin.replace(/\/$/, '');
+        // Remove the trailing slash from the incoming origin (value)
+        const normalizeOrigin = (val) => val.toLowerCase().trim().replace(/\/$/, '');
+
+        const cleanOrigin = normalizeOrigin(origin);
 
         // Compare the cleaned origin with the unique origins
-        if (uniqueOrigins.some(o => o.replace(/\/$/, '') === cleanOrigin)) {
+        const isAllowed = uniqueOrigins.some(o => {
+            if (!o) return false;
+            return normalizeOrigin(o) === cleanOrigin;
+        });
+
+        if (isAllowed) {
             callback(null, true);
         } else {
             console.warn(`CORS blocked for origin: ${origin}`);
+            console.log('Allowed Origins (loaded from Env):', uniqueOrigins);
+            console.log('Cleaned incoming origin:', cleanOrigin);
             callback(null, false);
         }
     },

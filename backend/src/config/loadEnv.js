@@ -22,7 +22,7 @@ if (!isProduction && !fs.existsSync(envFilePath)) {
 
 const result = dotenv.config({
     path: envFilePath,
-    override: false
+    override: true
 })
 
 if (result.error && !isProduction) {
