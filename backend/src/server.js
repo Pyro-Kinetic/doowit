@@ -21,7 +21,6 @@ const clientOrigin = [
 ].filter(Boolean)
 const uniqueOrigins = [...new Set(clientOrigin)]
 
-console.log('Environment loaded:', nodeEnv)
 console.log('Allowed Origins (initial):', uniqueOrigins)
 
 if (!sessionSecret || sessionSecret.length < 64) {
