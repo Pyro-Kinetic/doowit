@@ -1,8 +1,15 @@
+<div align="center" style="text-align: center;">
+
 # Doowit - A Full-Stack Cosmic To-Do App
 A playful and intuitive full-stack to-do app that uses cosmic-themed priorities to help you organize and manage your tasks. Built with React, Node.js, and PostgreSQL, featuring a vibrant, responsive design and secure user authentication.
-# Live Demo - https://pyro-kinetic.github.io/doowit/
 
-<img src="https://github.com/user-attachments/assets/71ed90eb-809d-4a2b-9d2a-fb89ec0b8a05" alt="Meme image representation of the page" />
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-f3651d?style=for-the-badge&logo=rocket&logoColor=white)](https://pyro-kinetic.github.io/doowit/)
+
+<br />
+
+<img src="https://github.com/user-attachments/assets/71ed90eb-809d-4a2b-9d2a-fb89ec0b8a05" alt="Meme image representation of the page" width="600" />
+
+</div>
 
 ## ✨ Features
 - **User Authentication**: Secure sign-up and login system with session-based authentication.
